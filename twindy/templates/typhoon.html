@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="{% static '/img/icon/icofont/icofont.min.css' %}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+TC"/>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"/>
-        <script src="{% static '/js/navControl.js' %}"></script>
+        <script type="module" src="{% static '/js/navControl.js' %}"></script>
         <script src="https://unpkg.com/leaflet@1.7.0/dist/leaflet-src.js"></script>
         <script src="https://unpkg.com/leaflet-ui@0.5.9/dist/leaflet-ui-src.js"></script>
         <script src="{% static '/js/leaflet-kmz-src.js' %}"></script>
@@ -79,7 +79,7 @@
             </div>
         </header>
         <main>
-            <div class="content" id="map"></div>
+            <div class="content collapse-content" id="map"></div>
             <div class="sidemenu">
                 <ul id="menu">
                     <li>
