@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+        <meta name="google-site-verification" content="3_tLbpMalpboQd6M2CIgfnBUIvA0lKi8eianyoQZiTw"/>
+        <title>TWindy｜天氣圖庫</title>
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static '/css/header.css' %}">
+        <link rel="stylesheet" href="{% static '/css/style.css' %}">
+        <link rel="stylesheet" href="{% static '/css/map.css' %}">
+        <link rel="stylesheet" href="{% static '/img/icon/icofont/icofont.min.css' %}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+TC">
+        <script src="{% static '/js/navControl.js' %}"></script>
+        <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+        <script src="https://api.windy.com/assets/map-forecast/libBoot.js"></script>
+    </head>
+    <body>
+        <header id="header_ctn">
+            <div id="logo_ctn">
+                <a id="logo" href="/"><strong>TWindy</strong></a>｜<a id="sublogo" href="/"><strong>天氣圖庫</strong></a>
+            </div>
+            <ul id="nav_ctn">
+                <li><a href="/">Home</a></li>
+                <li><a href="/map/">Map</a></li>
+                <li><a href="/typhoon/">Typhoon</a></li>
+                <li><a href="/windy/">Windy</a></li>
+            </ul>
+            <div id="menu_btn_ctn">
+                <i class="icofont-navigation-menu"></i>
+            </div>
+        </header>
+        <main>
+            <div id="windy"></div>
+            <script src="{% static '/js/apiRequest.js' %}"></script>
+        </main>
+        <footer>
+        </footer>
+    </body>
+</html>

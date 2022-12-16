@@ -16,10 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from . import views
+from . import views as common_views
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('gallery/', include('gallery.urls')),
+    # path('', common_views.index, name='index'),
+    path('', include('gallery.urls'), name='index'),
     path('admin/', admin.site.urls),
+    path('gallery/', include('gallery.urls')),
+    path('map/', include('map.urls')),
+    path('typhoon/', include('typhoon.urls')),
+    path('windy/', include('windy.urls')),
 ]

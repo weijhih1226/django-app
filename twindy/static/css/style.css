@@ -43,6 +43,9 @@ a.btn-goTop {
     transition: 0.3s;
     opacity: 0;
 }
+a.btn-content {
+    right: 325px;
+}
 a.btn-goTop.show {
     opacity: 1;
     bottom: 25px;

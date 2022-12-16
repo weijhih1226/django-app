@@ -12,6 +12,6 @@ response_ca = requests.get(url=tafis_api+'cyclone/active/', headers={"Authorizat
 def index(request):
     return render(request , 'index.html')
 
-def home(request):
+def test(request):
     return HttpResponse(response_ca.text)
     

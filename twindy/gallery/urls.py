@@ -16,8 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from . import views
+from gallery import views as g_views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', g_views.index, name='index'),
+    path('test/' , g_views.test)
 ]
