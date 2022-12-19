@@ -1,4 +1,7 @@
-const tagClassCollapse = 'collapse-content'
+import * as TAG from './tagName.js'
+import * as STYLE from './timesliderStyle.js'
+
+const TAG_CLASS_ADD = TAG.COLLAPSE
 
 const tRange = 24;  // Units: hr
 const tStart = tNowUTC - tRange * 60 * min2msec;
@@ -39,23 +42,63 @@ const tStartAll = tAll5Min[1];
 const tEndAll = tAll5Min[tAll5Min.length - 1];
 var tSelect = tEndAll;
 
-urlRn2 = (Y , M , D , h , m , type) => homeCWB + 'rainfall/' + (Y+'-'+M+'-'+D+'_'+h+m) + '.QZ' + type + '8.jpg';
-urlRdr2 = (Y , M , D , h , m) => homeCWB + 'radar/CV1_TW_3600_' + (Y+M+D+h+m) + '.png';
-urlLtn2 = (Y , M , D , h , m) => homeCWB + 'lightning/' + (Y+M+D+h+m) + '00_lgtl.jpg';
-urlSatVSg2 = (Y , M , D , h , m , area , px) => homeCWB + 'satellite/' + area + '_VIS_Gray_' + px + '/' + area + '_VIS_Gray_' + px + '-' + (Y+'-'+M+'-'+D+'-'+h+'-'+m) + '.jpg';
-urlSatVSt2 = (Y , M , D , h , m , area , px) => homeCWB + 'satellite/' + area + '_VIS_TRGB_' + px + '/' + area + '_VIS_TRGB_' + px + '-' + (Y+'-'+M+'-'+D+'-'+h+'-'+m) + '.jpg';
-urlSatIRc2 = (Y , M , D , h , m , area , px) => homeCWB + 'satellite/' + area + '_IR1_CR_' + px + '/' + area + '_IR1_CR_' + px + '-' + (Y+'-'+M+'-'+D+'-'+h+'-'+m) + '.jpg';
-urlSatIRe2 = (Y , M , D , h , m , area , px) => homeCWB + 'satellite/' + area + '_IR1_MB_' + px + '/' + area + '_IR1_MB_' + px + '-' + (Y+'-'+M+'-'+D+'-'+h+'-'+m) + '.jpg';
-urlTemp2 = (Y , M , D , h) => homeCWB + 'temperature/' + (Y+'-'+M+'-'+D+'_'+h) + '00.GTP8.jpg';
-urlSkt2 = (Y , M , D , h) => homeCWB2 + 'irisme_data/Weather/SKEWT/SKW___000_' + (Y+M+D+h) + '_46692.gif';
+const urlRn2 = (Y , M , D , h , m , type) => homeCWB + 'rainfall/' + (Y+'-'+M+'-'+D+'_'+h+m) + '.QZ' + type + '8.jpg';
+const urlRdr2 = (Y , M , D , h , m) => homeCWB + 'radar/CV1_TW_3600_' + (Y+M+D+h+m) + '.png';
+const urlLtn2 = (Y , M , D , h , m) => homeCWB + 'lightning/' + (Y+M+D+h+m) + '00_lgtl.jpg';
+const urlSatVSg2 = (Y , M , D , h , m , area , px) => homeCWB + 'satellite/' + area + '_VIS_Gray_' + px + '/' + area + '_VIS_Gray_' + px + '-' + (Y+'-'+M+'-'+D+'-'+h+'-'+m) + '.jpg';
+const urlSatVSt2 = (Y , M , D , h , m , area , px) => homeCWB + 'satellite/' + area + '_VIS_TRGB_' + px + '/' + area + '_VIS_TRGB_' + px + '-' + (Y+'-'+M+'-'+D+'-'+h+'-'+m) + '.jpg';
+const urlSatIRc2 = (Y , M , D , h , m , area , px) => homeCWB + 'satellite/' + area + '_IR1_CR_' + px + '/' + area + '_IR1_CR_' + px + '-' + (Y+'-'+M+'-'+D+'-'+h+'-'+m) + '.jpg';
+const urlSatIRe2 = (Y , M , D , h , m , area , px) => homeCWB + 'satellite/' + area + '_IR1_MB_' + px + '/' + area + '_IR1_MB_' + px + '-' + (Y+'-'+M+'-'+D+'-'+h+'-'+m) + '.jpg';
+const urlTemp2 = (Y , M , D , h) => homeCWB + 'temperature/' + (Y+'-'+M+'-'+D+'_'+h) + '00.GTP8.jpg';
+const urlSkt2 = (Y , M , D , h) => homeCWB2 + 'irisme_data/Weather/SKEWT/SKW___000_' + (Y+M+D+h) + '_46692.gif';
+
+function setStyle(el , style){
+    for (var property in style){
+        el.style[property] = style[property];
+    }
+}
+
+function createContainer(tagID , tagClass , tagClassAdd , tagParent , style){
+    const container = document.querySelector(tagParent)
+    const el = document.createElement('div');
+    container.appendChild(el);
+    el.id = tagID;
+    el.className = tagClass
+    el.classList.add(tagClassAdd);
+    setStyle(el , style)
+    return el
+}
+
+function createBody(tagID , style){
+    const el = document.createElement('div');
+    el.id = tagID;
+    setStyle(el , style)
+    el.style.width = time2BarWidth(tAll5Min[tAll5Min.length-1]);
+    return el
+}
+
+function createTrackBackground(tagID , style){
+    const el = document.createElement('div');
+    el.id = tagID;
+    setStyle(el , style)
+    return el
+}
+
+function createTrack(tagID , style){
+    const el = document.createElement('div');
+    el.id = tagID;
+    setStyle(el , style)
+    return el
+}
 
 document.addEventListener('DOMContentLoaded' , function(){
+    const tsCtn = createContainer(TAG.TS_CTN , TAG.TS , TAG_CLASS_ADD , TAG.MAIN , STYLE.CTN)
+    const tsBody = createBody(TAG.TS_BODY , STYLE.BODY)
+    const tsTrackBg = createTrackBackground(TAG.TS_TRACK_BG , STYLE.TRACK_BG)
+    const tsTrack = createTrack(TAG.TS_TRACK , STYLE.TRACK)
     const content = this.querySelector('.content');
     const menu = this.querySelector('#menu');
-    const tsCtn = this.createElement('div');
-    const tsTrackBg = this.createElement('div');
-    const tsTrack = this.createElement('div');
-    const ts = this.createElement('div');
+    
     const tsPointer = this.createElement('div');
     const tsDragBtn = this.createElement('div');
     const tsAnchor = this.createElement('div');
@@ -65,10 +108,6 @@ document.addEventListener('DOMContentLoaded' , function(){
     const tsCtlplay = this.createElement('i');
     const tsCtlforward = this.createElement('i');
     const tsCtlrewind = this.createElement('i');
-    const tsCtnS = tsCtn.style;
-    const tsTrackBgS = tsTrackBg.style;
-    const tsTrackS = tsTrack.style;
-    const tsS = ts.style;
     const tsPointerS = tsPointer.style;
     const tsDragBtnS = tsDragBtn.style;
     const tsAnchorS = tsAnchor.style;
@@ -76,12 +115,11 @@ document.addEventListener('DOMContentLoaded' , function(){
     const tsTickTagS = tsTickTag.style;
     const tsCtlS = tsCtl.style;
 
-    this.querySelector('main').appendChild(tsCtn);
     tsCtn.appendChild(tsTrackBg);
     tsCtn.appendChild(tsCtl);
     tsTrackBg.appendChild(tsTrack);
     tsTrackBg.appendChild(tsPointer);
-    tsTrack.appendChild(ts);
+    tsTrack.appendChild(tsBody);
     tsPointer.appendChild(tsDragBtn);
     tsPointer.appendChild(tsAnchor);
     tsPointer.appendChild(tsTickTag);
@@ -90,12 +128,6 @@ document.addEventListener('DOMContentLoaded' , function(){
     tsCtl.appendChild(tsCtlplay);
     tsCtl.appendChild(tsCtlforward);
 
-    tsCtn.id = 'tsCtn';
-    tsCtn.className = 'timeslider'
-    tsCtn.classList.add(tagClassCollapse);
-    tsTrackBg.id = 'tsTrackBg';
-    tsTrack.id = 'tsTrack';
-    ts.id = 'ts';
     tsPointer.id = 'tsPointer';
     tsDragBtn.id = 'tsDragBtn';
     tsAnchor.id = 'tsAnchor';
@@ -105,50 +137,9 @@ document.addEventListener('DOMContentLoaded' , function(){
     tsCtlplay.className = 'icofont-play-alt-1 icofont-2x';
     tsCtlforward.className = 'icofont-forward icofont-2x';
     tsCtlrewind.className = 'icofont-rewind icofont-2x';
-    
-    tsCtnS.zIndex = '2';
-    tsCtnS.left = '0';
-    tsCtnS.right = '300px';
-    tsCtnS.bottom = '0';
-    tsCtnS.height = '3em';
-    tsCtnS.position = 'fixed';
-    tsCtnS.display = 'flex';
-    tsCtnS.alignItems = 'center';
-    tsCtnS.background = 'rgba(255 , 255 , 255 , 0)';
-    tsCtnS.pointerEvents = 'none';
-
-    tsTrackBgS.left = '20px';
-    tsTrackBgS.right = '150px';
-    tsTrackBgS.height = '10px';
-    tsTrackBgS.position = 'absolute';
-    tsTrackBgS.background = '#9da8b3';
-    tsTrackBgS.borderRadius = '5px';
-    tsTrackBgS.display = 'flex';
-    tsTrackBgS.alignItems = 'center';
-    tsTrackBgS.pointerEvents = 'auto';
-    
-    tsTrackS.left = '0';
-    tsTrackS.top = '0';
-    tsTrackS.bottom = '0';
-    tsTrackS.width = '100%';
-    tsTrackS.position = 'absolute';
-    tsTrackS.background = '#9da8b3';
-    tsTrackS.borderRadius = '5px';
-    tsTrackS.display = 'flex';
-    tsTrackS.alignItems = 'center';
-    tsTrackS.cursor = 'pointer';
-    tsTrackS.pointerEvents = 'auto';
-
-    tsS.left = '0';
-    tsS.top = '0';
-    tsS.bottom = '0';
-    tsS.width = time2BarWidth(tAll5Min[tAll5Min.length-1]);
-    tsS.position = 'absolute';
-    tsS.background = '#197C9D';
-    tsS.borderRadius = '5px';
 
     tsPointerS.left = time2BarWidth(tAll5Min[tAll5Min.length-1]);
-    tsPointerS.height = tsTrackBgS.height;
+    tsPointerS.height = tsTrackBg.style.height;
     tsPointerS.position = 'absolute';
     tsPointerS.display = 'flex';
     tsPointerS.justifyContent = 'center';
@@ -351,7 +342,7 @@ document.addEventListener('DOMContentLoaded' , function(){
     }
 
     function displayTimeslider(tSelect){
-        tsS.width = time2BarWidth(tSelect);
+        tsBody.style.width = time2BarWidth(tSelect);
         tsPointerS.left = time2BarWidth(tSelect);
         tsTag.innerText = time2LSTStr(tSelect);
     }
