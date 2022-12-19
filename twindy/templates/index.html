@@ -20,7 +20,7 @@
         crossorigin="anonymous"></script>
         <script src="{% static '/js/getTime.js' %}"></script>
         <script type="module" src="{% static '/js/zoomPicture.js' %}"></script>
-        <script src="{% static '/js/timeslider.js' %}"></script>
+        <script type="module" src="{% static '/js/timeslider.js' %}"></script>
         <script type="module" src="{% static '/js/navControl.js' %}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.6/waves.min.js"></script>
         <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -56,12 +56,12 @@
                 <li><a href="/typhoon/">Typhoon</a></li>
                 <li><a href="/windy/">Windy</a></li>
             </ul>
-            <div id="menu_btn_ctn">
+            <div id="btn-sidemenu">
                 <i class="icofont-navigation-menu"></i>
             </div>
         </header>
         <main>
-            <div class="content collapse-content">
+            <div class="content collapse">
                 <div id="rain" class="product">
                     <div class="header"><div class="title">日雨量</div><div class="time"></div></div>
                     <div class="pic"><a target="_blank"><img title="Rainfall Daily" alt="Rainfall Daily"></a></div>
@@ -110,7 +110,7 @@
                     <div class="header"><div class="title">各國颱風路徑</div><div class="time"></div></div>
                     <div class="pic"><a target="_blank"><img title="Typhoon 2000" alt="Typhoon 2000"></a></div>
                 </div>
-                <a href="#" class="btn-goTop btn-content collapse-content"><i class="zmdi zmdi-long-arrow-up"></i></a>
+                <a href="#" class="btn-goTop btn-content collapse"><i class="zmdi zmdi-long-arrow-up"></i></a>
             </div>
             <div class="sidemenu">
                 <ul id="menu">
@@ -146,7 +146,7 @@
                         <ul class="inmenu time-list"></ul>
                     </li>
                 </ul>
-                <a href="#" class="btn-goTop btn-menu collapse-content"><i class="zmdi zmdi-long-arrow-up"></i></a>
+                <a href="#" class="btn-goTop btn-menu collapse"><i class="zmdi zmdi-long-arrow-up"></i></a>
             </div>
         </main>
         <footer>

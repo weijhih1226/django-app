@@ -4,15 +4,15 @@ const DELAY = 10;
 const WIDTH = 300;
 
 window.addEventListener('DOMContentLoaded' , function(){
-    CollapseSidemenu(TAG.BTN_COLLAPSE_MENU , TAG.CTN_SIDEMENU , TAG.OBJ_COLLAPSE , WIDTH , DELAY)
+    collapseSidemenu(TAG.ID_BTN_SIDEMENU , TAG.CLS_SIDEMENU , TAG.CLS_COLLAPSE , WIDTH , DELAY)
 })
 
-function CollapseSidemenu(tagClickObj , tagSidemenu , tagCollapse , width , delay){
+function collapseSidemenu(tagClickObj , tagSidemenu , tagCollapses , width , delay){
     var sidemenu = document.querySelector(tagSidemenu);
     if (sidemenu !== null) {
         sidemenu.style.right = getComputedStyle(sidemenu).right;
         document.querySelector(tagClickObj).addEventListener('click' , () => {
-            var collapses = document.querySelectorAll(tagCollapse);
+            var collapses = document.querySelectorAll(tagCollapses);
             collapses = Array.from(collapses)
             collapses.forEach(function(collapse){
                 collapse.style.right = getComputedStyle(collapse).right
