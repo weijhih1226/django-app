@@ -317,23 +317,3 @@ function NetPing(url) {
         }
     });
 }
-
-function fadeIn(el , delay) {
-    if (el.style.opacity === '') el.style.opacity = '0';
-    if (parseFloat(el.style.opacity) < 1) {
-        setTimeout(() => {
-            el.style.opacity = parseFloat(el.style.opacity) + 0.1;
-            fadeIn(el , delay)
-        } , delay)
-    }
-}
-
-function fadeOut(el , delay) {
-    if (el.style.opacity === '') el.style.opacity = '1';
-    if (parseFloat(el.style.opacity) > 0) {
-        setTimeout(() => {
-            el.style.opacity = parseFloat(el.style.opacity) - 0.1;
-            fadeOut(el , delay)
-        } , delay)
-    } else {el.remove()}
-}
