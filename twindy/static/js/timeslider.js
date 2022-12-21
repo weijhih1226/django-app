@@ -1,5 +1,4 @@
 import * as TAG from './tagInfo.js'
-import * as STYLE from './timesliderStyle.js'
 
 const TAG_CLASS_ADD = TAG.COLLAPSE
 
