@@ -1,4 +1,4 @@
-import * as TAG from './tagName.js'
+import * as TAG from './tagInfo.js'
 
 const DELAY = 10;
 const WIDTH = 300;
