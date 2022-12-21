@@ -6,8 +6,8 @@
     --ts-body-align-items: center;
     --ts-body-pointer-events: auto;
 
-    --ts-pointer-width: 16px;
-    --ts-pointer-height: 16px;
+    --ts-pointer-width: 14px;
+    --ts-pointer-height: 14px;
     --ts-pointer-position: absolute;
     --ts-pointer-display: none;
     --ts-pointer-border-radius: 8px;
@@ -15,8 +15,6 @@
 
     --ts-pointer-tag-width: 56px;
     --ts-pointer-tag-height: 26px;
-    --ts-pointer-tag-border: 1px solid #fff;
-    --ts-pointer-tag-border-radius: 5px;
     --ts-pointer-tag-position: absolute;
     --ts-pointer-tag-color: #fff;
     --ts-pointer-tag-justify-content: center;
@@ -95,8 +93,8 @@
     top: -35px;
     width: var(--ts-pointer-tag-width);
     height: var(--ts-pointer-tag-height);
-    border: var(--ts-pointer-tag-border);
-    border-radius: var(--ts-pointer-tag-border-radius);
+    border: 1px solid #fff;
+    border-radius: 5px;
     position: var(--ts-pointer-tag-position);
     background: #9da8b3;
     color: var(--ts-pointer-tag-color);
@@ -109,11 +107,12 @@
 
 #ts-bar-pointer {
     /* draggable: true; */
-    width: var(--ts-pointer-width);
-    height: var(--ts-pointer-height);
+    width: calc(var(--ts-pointer-width) - 2px);
+    height: calc(var(--ts-pointer-height) - 2px);
     position: var(--ts-pointer-position);
     display: var(--ts-pointer-display);
     background: #197C9D;
+    border: 2px solid #fff;
     border-radius: var(--ts-pointer-border-radius);
     cursor: var(--ts-pointer-cursor);
 }
@@ -123,8 +122,8 @@
     top: -38px;
     width: var(--ts-pointer-tag-width);
     height: var(--ts-pointer-tag-height);
-    border: var(--ts-pointer-tag-border);
-    border-radius: var(--ts-pointer-tag-border-radius);
+    border: 2px solid #fff;
+    border-radius: 6px;
     position: var(--ts-pointer-tag-position);
     background: #197C9D;
     color: var(--ts-pointer-tag-color);
