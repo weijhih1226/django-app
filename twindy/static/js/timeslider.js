@@ -1,4 +1,4 @@
-import * as TAG from './tagName.js'
+import * as TAG from './tagInfo.js'
 import * as STYLE from './timesliderStyle.js'
 
 const TAG_CLASS_ADD = TAG.COLLAPSE
@@ -58,226 +58,88 @@ function setStyle(el , style){
     }
 }
 
-function createContainer(tagID , tagClass , tagClassAdd , tagParent , style){
-    const container = document.querySelector(tagParent)
-    const el = document.createElement('div');
-    container.appendChild(el);
-    el.id = tagID;
-    el.className = tagClass
-    el.classList.add(tagClassAdd);
-    setStyle(el , style)
-    return el
+function createElement(tagName , id , cls){
+    const el = document.createElement(tagName);
+    if (id !== null) el.id = id;
+    if (cls !== null) el.className = cls;
+    return el;
 }
 
-function createBody(tagID , style){
-    const el = document.createElement('div');
-    el.id = tagID;
-    setStyle(el , style)
-    el.style.width = time2BarWidth(tAll5Min[tAll5Min.length-1]);
-    return el
-}
-
-function createTrackBackground(tagID , style){
-    const el = document.createElement('div');
-    el.id = tagID;
-    setStyle(el , style)
-    return el
-}
-
-function createTrack(tagID , style){
-    const el = document.createElement('div');
-    el.id = tagID;
-    setStyle(el , style)
-    return el
+function createTick(cls , time){
+    const el = createElement('div' , null , cls);
+    el.style.left = time2BarWidth(time);
+    return el;
 }
 
 document.addEventListener('DOMContentLoaded' , function(){
-    const tsCtn = createContainer(TAG.TS_CTN , TAG.TS , TAG_CLASS_ADD , TAG.MAIN , STYLE.CTN)
-    const tsBody = createBody(TAG.TS_BODY , STYLE.BODY)
-    const tsTrackBg = createTrackBackground(TAG.TS_TRACK_BG , STYLE.TRACK_BG)
-    const tsTrack = createTrack(TAG.TS_TRACK , STYLE.TRACK)
-    const content = this.querySelector('.content');
-    const menu = this.querySelector('#menu');
+    const tsCtn = document.querySelector('#timeslider');
+    const tsBody = createElement('div' , 'ts-body' , TAG.CLS_TS_BODY);
+    const tsTrack = createElement('div' , 'ts-track' , TAG.CLS_TS_BODY);
+    const tsBar = createElement('div' , 'ts-bar' , TAG.CLS_TS_BODY);
+    const tsAnchor = createElement('div' , 'ts-anchor' , TAG.CLS_TS_BODY);
+    const tsPointer = createElement('div' , 'ts-pointer' , TAG.CLS_TS_BODY);
+    const tsPointerTag = createElement('div' , 'ts-pointer-tag' , TAG.CLS_TS_BODY);
+    const tsBarPointer = createElement('div' , 'ts-bar-pointer' , TAG.CLS_TS_BODY);
+    const tsBarTag = createElement('div' , 'ts-bar-tag' , TAG.CLS_TS_BODY);
     
-    const tsPointer = this.createElement('div');
-    const tsDragBtn = this.createElement('div');
-    const tsAnchor = this.createElement('div');
-    const tsTag = this.createElement('div');
-    const tsTickTag = this.createElement('div');
-    const tsCtl = this.createElement('div');
-    const tsCtlplay = this.createElement('i');
-    const tsCtlforward = this.createElement('i');
-    const tsCtlrewind = this.createElement('i');
-    const tsPointerS = tsPointer.style;
-    const tsDragBtnS = tsDragBtn.style;
-    const tsAnchorS = tsAnchor.style;
-    const tsTagS = tsTag.style;
-    const tsTickTagS = tsTickTag.style;
-    const tsCtlS = tsCtl.style;
+    const tsCtl = createElement('div' , 'ts-ctl' , TAG.CLS_TS_BODY);
+    const tsCtlPlay = createElement('i' , 'ts-ctl-play' , TAG.CLS_TS_CTL_PLAY);
+    const tsCtlForward = createElement('i' , 'ts-ctl-forward' , TAG.CLS_TS_CTL_FORWARD);
+    const tsCtlRewind = createElement('i' , 'ts-ctl-rewind' , TAG.CLS_TS_CTL_REWIND);
 
-    tsCtn.appendChild(tsTrackBg);
+    tsCtn.classList.add(TAG_CLASS_ADD);
+    tsCtlPlay.classList.add('ts-ctl-icon');
+    tsCtlForward.classList.add('ts-ctl-icon');
+    tsCtlRewind.classList.add('ts-ctl-icon');
+    tsBar.style.width = time2BarWidth(tAll5Min[tAll5Min.length-1]);
+    tsAnchor.style.left = time2BarWidth(tAll5Min[tAll5Min.length-1]);
+    tsBarTag.innerText = time2LSTStr(tEndAll);
+    tsPointerTag.innerText = time2LSTStr(tEndAll);
+
+    tsCtn.appendChild(tsBody);
     tsCtn.appendChild(tsCtl);
-    tsTrackBg.appendChild(tsTrack);
-    tsTrackBg.appendChild(tsPointer);
-    tsTrack.appendChild(tsBody);
-    tsPointer.appendChild(tsDragBtn);
-    tsPointer.appendChild(tsAnchor);
-    tsPointer.appendChild(tsTickTag);
-    tsPointer.appendChild(tsTag);
-    tsCtl.appendChild(tsCtlrewind);
-    tsCtl.appendChild(tsCtlplay);
-    tsCtl.appendChild(tsCtlforward);
+    tsBody.appendChild(tsTrack);
+    tsBody.appendChild(tsAnchor);
+    tsTrack.appendChild(tsBar);
+    tsAnchor.appendChild(tsBarPointer);
+    tsAnchor.appendChild(tsPointer);
+    tsAnchor.appendChild(tsPointerTag);
+    tsAnchor.appendChild(tsBarTag);
+    tsCtl.appendChild(tsCtlRewind);
+    tsCtl.appendChild(tsCtlPlay);
+    tsCtl.appendChild(tsCtlForward);
 
-    tsPointer.id = 'tsPointer';
-    tsDragBtn.id = 'tsDragBtn';
-    tsAnchor.id = 'tsAnchor';
-    tsTag.id = 'tsTag';
-    tsTickTag.id = 'tsTickTag';
-    tsCtl.id = 'tsCtl';
-    tsCtlplay.className = 'icofont-play-alt-1 icofont-2x';
-    tsCtlforward.className = 'icofont-forward icofont-2x';
-    tsCtlrewind.className = 'icofont-rewind icofont-2x';
-
-    tsPointerS.left = time2BarWidth(tAll5Min[tAll5Min.length-1]);
-    tsPointerS.height = tsTrackBg.style.height;
-    tsPointerS.position = 'absolute';
-    tsPointerS.display = 'flex';
-    tsPointerS.justifyContent = 'center';
-    tsPointerS.alignItems = 'center';
-
-    // tsDragBtn.draggable = 'true';
-    tsDragBtnS.width = tsAnchorS.width = '16px';
-    tsDragBtnS.height = tsAnchorS.height = '16px';
-    tsDragBtnS.position = tsAnchorS.position = 'absolute';
-    tsDragBtnS.display = tsAnchorS.display = 'none';
-    tsDragBtnS.background = '#197C9D' , tsAnchorS.background = '#fff';
-    tsDragBtnS.borderRadius = tsAnchorS.borderRadius = '8px';
-    tsDragBtnS.cursor = tsAnchorS.cursor = 'pointer';
-
-    tsTag.innerText = tsTickTag.innerText = time2LSTStr(tEndAll);
-    tsTagS.left = tsTickTagS.left = '-30px';
-    tsTagS.top = '-38px' , tsTickTagS.top = '-40px';
-    tsTagS.width = tsTickTagS.width = '56px';
-    tsTagS.height = tsTickTagS.height = '26px';
-    tsTagS.border = tsTickTagS.border = '1px solid #fff';
-    tsTagS.borderRadius = tsTickTagS.borderRadius = '5px';
-    tsTagS.position = tsTickTagS.position = 'absolute';
-    tsTagS.background = '#197C9D' , tsTickTagS.background = '#9da8b3';
-    tsTagS.color = tsTickTagS.color = '#fff';
-    tsTagS.display = 'flex' , tsTickTagS.display = 'none';
-    tsTagS.justifyContent = tsTickTagS.justifyContent = 'center';
-    tsTagS.alignItems = tsTickTagS.alignItems = 'center';
-    tsTagS.fontSize = tsTickTagS.fontSize = '14px';
-
-    tsCtlS.right = '20px';
-    tsCtlS.width = '110px';
-    tsCtlS.height = '80%';
-    tsCtlS.position = 'absolute';
-    tsCtlS.display = 'flex';
-    tsCtlS.justifyContent = 'center';
-    tsCtlS.alignItems = 'center';
-
-    tsCtl.querySelectorAll('i').forEach(icon => {
-        icon.style.margin = '5px';
-        // icon.style.color = '#9da8b3';
-        icon.style.color = '#197C9D';
-        icon.style.backgroundColor = '#fff';
-        icon.style.borderRadius = '50%';
-        icon.style.cursor = 'pointer';
-        icon.style.pointerEvents = 'auto';
-    })
-
-    for (var t = 1 ; t < tAll1Hr.length ; t++){
-        const tick = this.createElement('div');
-        const tickS = tick.style;
-        tsTrack.appendChild(tick);
-
-        tickS.left = time2BarWidth(tAll1Hr[t]);
-        tickS.width = '2px';
-        tickS.height = '12px';
-        tickS.position = 'absolute';
-        tickS.display = 'flex';
-        tickS.justifyContent = 'center';
-        tickS.alignItems = 'center';
-        tickS.cursor = 'pointer';
-
-        if (time2LSTStr(tAll1Hr[t]).substring(0, 2) === '00' || 
-            time2LSTStr(tAll1Hr[t]).substring(0, 2) === '06' || 
-            time2LSTStr(tAll1Hr[t]).substring(0, 2) === '12' || 
-            time2LSTStr(tAll1Hr[t]).substring(0, 2) === '18'){
-            const tsTickInfo = this.createElement('span');
-            tick.appendChild(tsTickInfo);
-            tsTickInfo.innerText = time2LSTStr(tAll1Hr[t]);
-            tsTickInfo.style.top = '-26px';
-            tsTickInfo.style.position = 'absolute';
-            tsTickInfo.style.pointerEvents = 'none';
-            tsTickInfo.style.fontSize = '14px';
-            tsTickInfo.style.textShadow = '0 0 10px #000';
-            tickS.background = '#000';
-        } else tickS.background = '#fff';
-
-        if (time2LSTStr(tAll1Hr[t]).substring(0, 2) === '00'){
-            const tsTickInfo = this.createElement('span');
-            tick.appendChild(tsTickInfo);
-            tsTickInfo.innerText = date2LSTStr(tAll1Hr[t]);
-            tsTickInfo.style.top = '-46px';
-            tsTickInfo.style.position = 'absolute';
-            tsTickInfo.style.pointerEvents = 'none';
-            tsTickInfo.style.fontSize = '14px';
-            tsTickInfo.style.textShadow = '0 0 10px #000';
+    for (let t = 1 ; t < tAll10Min.length ; t++){
+        const timeLST = time2LSTStr(tAll10Min[t]);
+        const infoTime = ['00:00' , '06:00' , '12:00' , '18:00'];
+        if (timeLST.substring(3, 5) === '00'){
+            var tick = createTick('ts-ticks-1hr' , tAll10Min[t]);
+        } else if (timeLST.substring(3, 5) === '30'){
+            var tick = createTick('ts-ticks-30min' , tAll10Min[t]);
+        } else {
+            var tick = createTick('ts-ticks-10min' , tAll10Min[t]);
         }
-    }
+        tick.classList.add('ts-ticks');
 
-    for (var t = 1 ; t < tAll30Min.length ; t++){
-        const tick = this.createElement('div');
-        const tickS = tick.style;
         tsTrack.appendChild(tick);
 
-        tickS.left = time2BarWidth(tAll30Min[t]);
-        tickS.width = '1px';
-        tickS.height = '10px';
-        tickS.position = 'absolute';
-        tickS.display = 'flex';
-        tickS.justifyContent = 'center';
-        tickS.alignItems = 'center';
-        tickS.cursor = 'pointer';
-        if (time2LSTStr(tAll30Min[t]).substring(0, 5) === '00:00' || 
-            time2LSTStr(tAll30Min[t]).substring(0, 5) === '06:00' || 
-            time2LSTStr(tAll30Min[t]).substring(0, 5) === '12:00' || 
-            time2LSTStr(tAll30Min[t]).substring(0, 5) === '18:00'){
-            tickS.background = '#000';
-        } else tickS.background = '#fff';
-    }
+        if (infoTime.includes(timeLST.substring(0, 5))){
+            const tsTickInfo = createElement('span' , null , 'ts-ticks-info-06L');
+            tsTickInfo.classList.add('ts-ticks-info');
+            tick.appendChild(tsTickInfo);
+            tsTickInfo.innerText = time2LSTStr(tAll10Min[t]);
+            tick.style.background = '#000';
+        } else tick.style.background = '#fff';
 
-    for (var t = 1 ; t < tAll10Min.length ; t++){
-        const time = tAll10Min[t];
-        const tick = this.createElement('div');
-        const tickS = tick.style;
-        tick.className = 'tick';
-        tsTrack.appendChild(tick);
-
-        tickS.left = time2BarWidth(time);
-        tickS.width = '1px';
-        tickS.height = '6px';
-        tickS.position = 'absolute';
-        tickS.display = 'flex';
-        tickS.justifyContent = 'center';
-        tickS.alignItems = 'center';
-        tickS.cursor = 'pointer';
-        if (time2LSTStr(tAll10Min[t]).substring(0, 5) === '00:00' || 
-            time2LSTStr(tAll10Min[t]).substring(0, 5) === '06:00' || 
-            time2LSTStr(tAll10Min[t]).substring(0, 5) === '12:00' || 
-            time2LSTStr(tAll10Min[t]).substring(0, 5) === '18:00'){
-            tickS.background = '#000';
-        } else tickS.background = '#fff';
+        if (time2LSTStr(tAll10Min[t]).substring(0, 5) === '00:00'){
+            const tsTickInfo = createElement('span' , null , 'ts-ticks-info-00L');
+            tsTickInfo.classList.add('ts-ticks-info');
+            tick.appendChild(tsTickInfo);
+            tsTickInfo.innerText = date2LSTStr(tAll10Min[t]);
+        }
 
         tick.addEventListener('mouseover' , function(){
-            this.appendChild(tsTickTag)
-            tsTickTag.innerText = time2LSTStr(time);
-            tsTickTagS.display = 'flex';
-        });
-        tick.addEventListener('mouseleave' , function(){
-            tsTickTagS.display = 'none';
+            tsPointerTag.innerText = time2LSTStr(tAll10Min[t]);
         });
     }
 
@@ -307,12 +169,12 @@ document.addEventListener('DOMContentLoaded' , function(){
         switch (optPlay){
             case 0:
                 optPlay = 1;
-                tsCtl.querySelector('.icofont-play-alt-1').className = 'icofont-pause icofont-2x';
+                tsCtl.querySelector('.icofont-play-alt-1').className = 'ts-ctl-icon icofont-pause icofont-2x';
                 eventPlay(playSpeed);
                 break;
             case 1:
                 optPlay = 0;
-                tsCtl.querySelector('.icofont-pause').className = 'icofont-play-alt-1 icofont-2x';
+                tsCtl.querySelector('.icofont-pause').className = 'ts-ctl-icon icofont-play-alt-1 icofont-2x';
                 break;
         };
     }
@@ -342,9 +204,9 @@ document.addEventListener('DOMContentLoaded' , function(){
     }
 
     function displayTimeslider(tSelect){
-        tsBody.style.width = time2BarWidth(tSelect);
-        tsPointerS.left = time2BarWidth(tSelect);
-        tsTag.innerText = time2LSTStr(tSelect);
+        tsBar.style.width = time2BarWidth(tSelect);
+        tsAnchor.style.left = time2BarWidth(tSelect);
+        tsBarTag.innerText = time2LSTStr(tSelect);
     }
 
     function displayContent(tSelect){
@@ -387,27 +249,28 @@ document.addEventListener('DOMContentLoaded' , function(){
         skt.querySelector('img').src = urlSkt2(tDic12Hr.Y.substring(2, 4) , tDic12Hr.M , tDic12Hr.D , tDic12Hr.h);
     }
 
-    const onTicks = (eventType, eventHandler) => on(tsTrack , 'div', eventType, '.tick', eventHandler);
+    const onTicks = (eventType, eventHandler) => on(tsTrack , 'div' , eventType , '.ts-ticks', eventHandler);
 
     tsTrack.addEventListener('mousedown' , eventMouse);
-    tsCtlrewind.addEventListener('click' , eventRewind);
-    tsCtlforward.addEventListener('click' , eventForward);
-    tsCtlplay.addEventListener('click' , switchPlayPause);
+    tsCtlRewind.addEventListener('click' , eventRewind);
+    tsCtlForward.addEventListener('click' , eventForward);
+    tsCtlPlay.addEventListener('click' , switchPlayPause);
     this.addEventListener('keydown' , eventKey , false);
     this.addEventListener('keyup' , () => tSkip = tSkipDefault , false);
 
-    tsPointer.addEventListener('mouseover' , () => {
-        tsDragBtnS.display = 'flex';
+    tsAnchor.addEventListener('mouseover' , () => {
+        tsBarPointer.style.display = 'flex';
     });
-    tsPointer.addEventListener('mouseleave' , () => {
-        tsDragBtnS.display = 'none';
+    tsAnchor.addEventListener('mouseleave' , () => {
+        tsBarPointer.style.display = 'none';
     });
     onTicks('mouseover', e => {
-        e.target.appendChild(tsAnchor);
-        tsAnchorS.display = 'flex';
+        e.target.appendChild(tsPointer);
+        tsPointer.appendChild(tsPointerTag)
+        tsPointer.style.display = tsPointerTag.style.display = 'flex';
     })
     onTicks('mouseleave', () => {
-        tsAnchorS.display = 'none';
+        tsPointer.style.display = tsPointerTag.style.display = 'none';
     })
 });
 
