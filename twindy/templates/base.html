@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <meta name="google-site-verification" content="3_tLbpMalpboQd6M2CIgfnBUIvA0lKi8eianyoQZiTw"/>
+        {% block meta %}{% endblock %}
+        <title>TWindy{% block title %}{% endblock %}</title>
+
+        {% load static %}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+TC">
+        <link rel="stylesheet" href="{% static '/pkg/icofont/icofont.min.css' %}">
+        <link rel="stylesheet" href="{% static '/css/header.css' %}">
+        <link rel="stylesheet" href="{% static '/css/style.css' %}">
+        {% block link %}{% endblock %}
+        <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+        <script type="module" src="{% static '/js/navControl.js' %}"></script>
+        {% block script %}{% endblock %}
+    </head>
+    <body>
+        <header id="header_ctn">
+            <div id="logo_ctn">
+                <a id="logo" href="/"><strong>TWindy</strong></a>｜<a id="sublogo" href="/"><strong>天氣圖庫</strong></a>
+            </div>
+            <ul id="nav_ctn">
+                <li><a href="/">Home</a></li>
+                <li><a href="/map/">Map</a></li>
+                <li><a href="/typhoon/">Typhoon</a></li>
+                <li><a href="/windy/">Windy</a></li>
+            </ul>
+            <div id="btn-sidemenu">
+                <i class="icofont-navigation-menu"></i>
+            </div>
+        </header>
+        <main>
+            {% block content %}{% endblock %}
+            {% block sidemenu %}{% endblock %}
+        </main>
+        <footer>
+        </footer>
+    </body>
+</html>
