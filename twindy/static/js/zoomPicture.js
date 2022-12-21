@@ -1,4 +1,4 @@
-import * as TAG from './tagName.js'
+import * as TAG from './tagInfo.js'
 
 const TAG_BG_ZOOM = TAG.BG_ZOOM;
 const TAG_LK_ZOOM = TAG.LK_ZOOM;
