@@ -10,6 +10,7 @@
 {% block link %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
 <link rel="stylesheet" href="{% static '/css/gallery.css' %}">
+<link rel="stylesheet" href="{% static '/css/zoomPicture.css' %}">
 <link rel="stylesheet" href="{% static '/css/timeslider.css' %}">
 <link rel="stylesheet" href="{% static '/pkg/material-design-iconic-font/css/material-design-iconic-font.min.css' %}">
 {% endblock %}
@@ -18,6 +19,7 @@
 <script src="{% static '/js/getTime.js' %}"></script>
 <script type="module" src="{% static '/js/zoomPicture.js' %}"></script>
 <script type="module" src="{% static '/js/timeslider.js' %}"></script>
+<script type="module" src="{% static '/js/galleryMenu.js' %}"></script>
 <script type="module" src="{% static '/js/goTop.js' %}"></script>
 <!-- <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script> -->
@@ -81,36 +83,32 @@
 {% block sidemenu %}
 <div class="sidemenu">
     <ul id="menu">
-        <li>
+        <li id="menu-rain">
             <a href="#"><span>雨量</span></a>
             <ul class="inmenu rain-list">
-                <li><input type="radio" value="1" name="rain" id="rain-d" class="rain" checked><span>日雨量</span></li>
-                <li><input type="radio" value="2" name="rain" id="rain-h" class="rain"><span>時雨量</span></li>
+                <li><input type="radio" value="1" name="rain" id="rain-d" class="menu-rain-list" checked><span>日雨量</span></li>
+                <li><input type="radio" value="2" name="rain" id="rain-h" class="menu-rain-list"><span>時雨量</span></li>
             </ul>
         </li>
-        <li>
+        <li id="menu-sat">
             <a href="#"><span>衛星</span></a>
             <ul class="inmenu sat-list">
-                <li><input type="radio" value="1" name="sat" id="sat-tw" class="sat" checked><span>臺灣</span></li>
-                <li><input type="radio" value="2" name="sat" id="sat-ea" class="sat"><span>東亞</span></li>
-                <li><input type="radio" value="3" name="sat" id="sat-gb" class="sat"><span>全球</span></li>
+                <li><input type="radio" value="1" name="sat" id="sat-tw" class="menu-sat-list" checked><span>臺灣</span></li>
+                <li><input type="radio" value="2" name="sat" id="sat-ea" class="menu-sat-list"><span>東亞</span></li>
+                <li><input type="radio" value="3" name="sat" id="sat-gb" class="menu-sat-list"><span>全球</span></li>
             </ul>
         </li>
-        <li>
+        <li id="menu-ty">
             <a href="#"><span>颱風路徑</span></a>
             <ul class="inmenu ty-list">
-                <li><input type="radio" value="1" name="ty" id="ty-all" class="ty" checked><span>各國</span></li>
-                <li><input type="radio" value="2" name="ty" id="ty-ec" class="ty"><span>歐洲（ECMWF-IFS）</span></li>
-                <li><input type="radio" value="3" name="ty" id="ty-ncep" class="ty"><span>美國（NCEP-GFS）</span></li>
-                <li><input type="radio" value="4" name="ty" id="ty-uk" class="ty"><span>英國（UKMO-UM）</span></li>
-                <li><input type="radio" value="5" name="ty" id="ty-cmc" class="ty"><span>加拿大（CMC-GEM）</span></li>
-                <li><input type="radio" value="6" name="ty" id="ty-fnmoc" class="ty"><span>美國（FNMOC-NAVGEM）</span></li>
-                <li><input type="radio" value="7" name="ty" id="ty-jma" class="ty"><span>日本（JMA-GSM）</span></li>
+                <li><input type="radio" value="1" name="ty" id="ty-all" class="menu-ty-list" checked><span>各國</span></li>
+                <li><input type="radio" value="2" name="ty" id="ty-ec" class="menu-ty-list"><span>歐洲（ECMWF-IFS）</span></li>
+                <li><input type="radio" value="3" name="ty" id="ty-ncep" class="menu-ty-list"><span>美國（NCEP-GFS）</span></li>
+                <li><input type="radio" value="4" name="ty" id="ty-uk" class="menu-ty-list"><span>英國（UKMO-UM）</span></li>
+                <li><input type="radio" value="5" name="ty" id="ty-cmc" class="menu-ty-list"><span>加拿大（CMC-GEM）</span></li>
+                <li><input type="radio" value="6" name="ty" id="ty-fnmoc" class="menu-ty-list"><span>美國（FNMOC-NAVGEM）</span></li>
+                <li><input type="radio" value="7" name="ty" id="ty-jma" class="menu-ty-list"><span>日本（JMA-GSM）</span></li>
             </ul>
-        </li>
-        <li>
-            <a href="#"><span>觀測時間</span></a>
-            <ul class="inmenu time-list"></ul>
         </li>
     </ul>
     <a href="#" class="btn-goTop btn-menu collapse"><i class="zmdi zmdi-long-arrow-up"></i></a>

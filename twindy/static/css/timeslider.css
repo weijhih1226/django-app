@@ -1,13 +1,14 @@
 :root {
-    --ts-body-height: 10px;
+    --ts-body-height-before: 5px;
+    --ts-body-height-after: 10px;
     --ts-body-background: #9da8b3;
     --ts-body-border-radius: 5px;
     --ts-body-display: flex;
     --ts-body-align-items: center;
     --ts-body-pointer-events: auto;
 
-    --ts-pointer-width: 14px;
-    --ts-pointer-height: 14px;
+    --ts-pointer-width: 12px;
+    --ts-pointer-height: 12px;
     --ts-pointer-position: absolute;
     --ts-pointer-display: none;
     --ts-pointer-border-radius: 8px;
@@ -37,14 +38,18 @@
 
 #ts-body {
     left: 20px;
-    right: 150px;
-    height: var(--ts-body-height);
+    right: 160px;
+    height: var(--ts-body-height-before);
     position: absolute;
     background: var(--ts-body-background);
     border-radius: var(--ts-body-border-radius);
     display: var(--ts-body-display);
     align-items: var(--ts-body-align-items);
     pointer-events: var(--ts-body-pointer-events);
+    transition: height .2s ease-in-out;
+}
+#ts-body:hover {
+    height: var(--ts-body-height-after);
 }
 
 #ts-track {
@@ -71,7 +76,7 @@
 }
 
 #ts-anchor {
-    height: var(--ts-body-height);
+    height: 100%;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -83,17 +88,18 @@
     height: var(--ts-pointer-height);
     position: var(--ts-pointer-position);
     display: var(--ts-pointer-display);
-    background: #fff;
+    background: #9da8b3;
+    border: 2px solid #fff;
     border-radius: var(--ts-pointer-border-radius);
     cursor: var(--ts-pointer-cursor);
 }
 
 #ts-pointer-tag {
-    left: -23px;
-    top: -35px;
+    left: -25px;
+    top: -37px;
     width: var(--ts-pointer-tag-width);
     height: var(--ts-pointer-tag-height);
-    border: 1px solid #fff;
+    border: 2px solid #fff;
     border-radius: 5px;
     position: var(--ts-pointer-tag-position);
     background: #9da8b3;
@@ -107,8 +113,8 @@
 
 #ts-bar-pointer {
     /* draggable: true; */
-    width: calc(var(--ts-pointer-width) - 2px);
-    height: calc(var(--ts-pointer-height) - 2px);
+    width: var(--ts-pointer-width);
+    height: var(--ts-pointer-height);
     position: var(--ts-pointer-position);
     display: var(--ts-pointer-display);
     background: #197C9D;
@@ -161,17 +167,17 @@
     align-items: center;
     cursor: pointer;
 }
-.ts-ticks-1hr{
+.ts-ticks-1hr {
     width: 2px;
-    height: 12px;
+    height: 150%;
 }
 .ts-ticks-30min {
     width: 1px;
-    height: 10px;
+    height: 100%;
 }
 .ts-ticks-10min {
     width: 1px;
-    height: 6px;
+    height: 60%;
 }
 
 .ts-ticks-info {
@@ -184,5 +190,8 @@
     top: -26px;
 }
 .ts-ticks-info-00L {
-    top: -46px;
+    top: -26px;
+}
+.ts-ticks-info-nodisplay {
+    display: none;
 }

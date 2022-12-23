@@ -1,10 +1,12 @@
 import * as TAG from './tagInfo.js'
 
 const TAG_CLASS_ADD = TAG.COLLAPSE
+const INFO_TIME = ['00:00' , '06:00' , '12:00' , '18:00'];
 
+const MIN2MSEC = 60000;
 const tRange = 24;  // Units: hr
-const tStart = tNowUTC - tRange * 60 * min2msec;
-const tEnd = tNowUTC;
+const tStart = NOW_UTC - tRange * 60 * MIN2MSEC;
+const tEnd = NOW_UTC;
 const tOpt = {year: 'numeric', month: '2-digit', day: '2-digit', 
               hour: '2-digit', minute: '2-digit', hour12: false};
 const tStrStart = datetime2LSTStr(tStart);
@@ -14,11 +16,11 @@ var tSkipDefault = 10;
 var tSkip = tSkipDefault;
 const playSpeed = 500;
 
-const tInt5Min = 5 * min2msec;
-const tInt10Min = 10 * min2msec;
-const tInt30Min = 30 * min2msec;
-const tInt1Hr = 60 * min2msec;
-const tInt12Hr = 720 * min2msec;
+const tInt5Min = 5 * MIN2MSEC;
+const tInt10Min = 10 * MIN2MSEC;
+const tInt30Min = 30 * MIN2MSEC;
+const tInt1Hr = 60 * MIN2MSEC;
+const tInt12Hr = 720 * MIN2MSEC;
 
 const tStart5Min = Date.parse(tStrStart.substring(0, 4) + '-' + tStrStart.substring(5, 7) + '-' + tStrStart.substring(8, 10) + 'T' + tStrStart.substring(11, 13) + ':' + tStrStart.substring(14, 15) + (parseInt(tStrStart.substring(15, 16)) < 5 ? '0' : '5') + ':00');
 const tStart10Min = Date.parse(tStrStart.substring(0, 4) + '-' + tStrStart.substring(5, 7) + '-' + tStrStart.substring(8, 10) + 'T' + tStrStart.substring(11, 13) + ':' + tStrStart.substring(14, 15) + '0:00');
@@ -35,21 +37,11 @@ for (var t = tStart5Min ; t <= tEnd ; t += tInt5Min) tAll5Min.push(t);
 for (var t = tStart10Min ; t <= tEnd ; t += tInt10Min) tAll10Min.push(t);
 for (var t = tStart30Min ; t <= tEnd ; t += tInt30Min) tAll30Min.push(t);
 for (var t = tStart1Hr ; t <= tEnd ; t += tInt1Hr) tAll1Hr.push(t);
-for (var t = tStart12Hr ; t <= tEnd ; t += tInt12Hr) tAll12Hr.push(t + 480 * min2msec);
+for (var t = tStart12Hr ; t <= tEnd ; t += tInt12Hr) tAll12Hr.push(t + 480 * MIN2MSEC);
 
 const tStartAll = tAll5Min[1];
 const tEndAll = tAll5Min[tAll5Min.length - 1];
 var tSelect = tEndAll;
-
-const urlRn2 = (Y , M , D , h , m , type) => homeCWB + 'rainfall/' + (Y+'-'+M+'-'+D+'_'+h+m) + '.QZ' + type + '8.jpg';
-const urlRdr2 = (Y , M , D , h , m) => homeCWB + 'radar/CV1_TW_3600_' + (Y+M+D+h+m) + '.png';
-const urlLtn2 = (Y , M , D , h , m) => homeCWB + 'lightning/' + (Y+M+D+h+m) + '00_lgtl.jpg';
-const urlSatVSg2 = (Y , M , D , h , m , area , px) => homeCWB + 'satellite/' + area + '_VIS_Gray_' + px + '/' + area + '_VIS_Gray_' + px + '-' + (Y+'-'+M+'-'+D+'-'+h+'-'+m) + '.jpg';
-const urlSatVSt2 = (Y , M , D , h , m , area , px) => homeCWB + 'satellite/' + area + '_VIS_TRGB_' + px + '/' + area + '_VIS_TRGB_' + px + '-' + (Y+'-'+M+'-'+D+'-'+h+'-'+m) + '.jpg';
-const urlSatIRc2 = (Y , M , D , h , m , area , px) => homeCWB + 'satellite/' + area + '_IR1_CR_' + px + '/' + area + '_IR1_CR_' + px + '-' + (Y+'-'+M+'-'+D+'-'+h+'-'+m) + '.jpg';
-const urlSatIRe2 = (Y , M , D , h , m , area , px) => homeCWB + 'satellite/' + area + '_IR1_MB_' + px + '/' + area + '_IR1_MB_' + px + '-' + (Y+'-'+M+'-'+D+'-'+h+'-'+m) + '.jpg';
-const urlTemp2 = (Y , M , D , h) => homeCWB + 'temperature/' + (Y+'-'+M+'-'+D+'_'+h) + '00.GTP8.jpg';
-const urlSkt2 = (Y , M , D , h) => homeCWB2 + 'irisme_data/Weather/SKEWT/SKW___000_' + (Y+M+D+h) + '_46692.gif';
 
 function setStyle(el , style){
     for (var property in style){
@@ -70,7 +62,17 @@ function createTick(cls , time){
     return el;
 }
 
+function actionMouseOverAndLeave(objMouseOver , objActionOn , clsActionOn){
+    objMouseOver.addEventListener('mouseover' , function(){
+        objActionOn.classList.remove(clsActionOn)
+    });
+    objMouseOver.addEventListener('mouseleave' , function(){
+        objActionOn.classList.add(clsActionOn)
+    });
+}
+
 document.addEventListener('DOMContentLoaded' , function(){
+    const content = document.querySelector('.content');
     const tsCtn = document.querySelector('#timeslider');
     const tsBody = createElement('div' , 'ts-body' , TAG.CLS_TS_BODY);
     const tsTrack = createElement('div' , 'ts-track' , TAG.CLS_TS_BODY);
@@ -110,7 +112,6 @@ document.addEventListener('DOMContentLoaded' , function(){
 
     for (let t = 1 ; t < tAll10Min.length ; t++){
         const timeLST = time2LSTStr(tAll10Min[t]);
-        const infoTime = ['00:00' , '06:00' , '12:00' , '18:00'];
         if (timeLST.substring(3, 5) === '00'){
             var tick = createTick('ts-ticks-1hr' , tAll10Min[t]);
         } else if (timeLST.substring(3, 5) === '30'){
@@ -122,20 +123,19 @@ document.addEventListener('DOMContentLoaded' , function(){
 
         tsTrack.appendChild(tick);
 
-        if (infoTime.includes(timeLST.substring(0, 5))){
-            const tsTickInfo = createElement('span' , null , 'ts-ticks-info-06L');
-            tsTickInfo.classList.add('ts-ticks-info');
+        if (INFO_TIME.includes(timeLST.substring(0, 5))){
+            if (['00'].includes(timeLST.substring(0, 2))){
+                var tsTickInfo = createElement('span' , null , 'ts-ticks-info-00L');
+                tsTickInfo.innerText = date2LSTStr(tAll10Min[t]);
+            } else {
+                var tsTickInfo = createElement('span' , null , 'ts-ticks-info-06L');
+                tsTickInfo.innerText = time2LSTStr(tAll10Min[t]);
+            }
+            tsTickInfo.classList.add('ts-ticks-info' , 'ts-ticks-info-nodisplay');
             tick.appendChild(tsTickInfo);
-            tsTickInfo.innerText = time2LSTStr(tAll10Min[t]);
             tick.style.background = '#000';
+            actionMouseOverAndLeave(tsBody , tsTickInfo , 'ts-ticks-info-nodisplay');
         } else tick.style.background = '#fff';
-
-        if (time2LSTStr(tAll10Min[t]).substring(0, 5) === '00:00'){
-            const tsTickInfo = createElement('span' , null , 'ts-ticks-info-00L');
-            tsTickInfo.classList.add('ts-ticks-info');
-            tick.appendChild(tsTickInfo);
-            tsTickInfo.innerText = date2LSTStr(tAll10Min[t]);
-        }
 
         tick.addEventListener('mouseover' , function(){
             tsPointerTag.innerText = time2LSTStr(tAll10Min[t]);
@@ -227,25 +227,29 @@ document.addEventListener('DOMContentLoaded' , function(){
         const tDic1Hr = timeDic(tStr1Hr);
         const tDic12Hr = timeDic(tStr12Hr);
 
-        rain.querySelector('.time').innerText = tStr30Min;
-        radar.querySelector('.time').innerText = tStr10Min;
-        lgtn.querySelector('.time').innerText = tStr5Min;
-        satvsg.querySelector('.time').innerText = tStr10Min;
-        satvst.querySelector('.time').innerText = tStr10Min;
-        satirc.querySelector('.time').innerText = tStr10Min;
-        satire.querySelector('.time').innerText = tStr10Min;
-        temp.querySelector('.time').innerText = tStr1Hr;
-        skt.querySelector('.time').innerText = tStr12Hr;
-        
-        rain.querySelector('img').src = urlRn2(tDic30Min.Y , tDic30Min.M , tDic30Min.D , tDic30Min.h , tDic30Min.m , tagRn);
-        radar.querySelector('img').src = urlRdr2(tDic10Min.Y , tDic10Min.M , tDic10Min.D , tDic10Min.h , tDic10Min.m);
-        lgtn.querySelector('img').src = urlLtn2(tDic5Min.Y , tDic5Min.M , tDic5Min.D , tDic5Min.h , tDic5Min.m);
-        satvsg.querySelector('img').src = urlSatVSg2(tDic10Min.Y , tDic10Min.M , tDic10Min.D , tDic10Min.h , tDic10Min.m , tagSatArea , tagSatVSgPx);
-        satvst.querySelector('img').src = urlSatVSt2(tDic10Min.Y , tDic10Min.M , tDic10Min.D , tDic10Min.h , tDic10Min.m , tagSatArea , tagSatVStPx);
-        satirc.querySelector('img').src = urlSatIRc2(tDic10Min.Y , tDic10Min.M , tDic10Min.D , tDic10Min.h , tDic10Min.m , tagSatArea , tagSatIRPx);
-        satire.querySelector('img').src = urlSatIRe2(tDic10Min.Y , tDic10Min.M , tDic10Min.D , tDic10Min.h , tDic10Min.m , tagSatArea , tagSatIRPx);
-        temp.querySelector('img').src = urlTemp2(tDic1Hr.Y , tDic1Hr.M , tDic1Hr.D , tDic1Hr.h);
-        skt.querySelector('img').src = urlSkt2(tDic12Hr.Y.substring(2, 4) , tDic12Hr.M , tDic12Hr.D , tDic12Hr.h);
+        tStrRn = tStr30Min;
+        tStrRdr = tStr10Min;
+        tStrSat = tStr10Min;
+        tStrLtn = tStr5Min;
+        tStrTemp = tStr1Hr;
+        tStrSkt = tStr12Hr;
+
+        tDicRn = tDic30Min;
+        tDicRdr = tDic10Min;
+        tDicSat = tDic10Min;
+        tDicLtn = tDic5Min;
+        tDicTemp = tDic1Hr;
+        tDicSkt = tDic12Hr;
+
+        setProduct(content , '#rain' , titleRn , tStrRn , urlRn(tDicRn , tagRn));
+        setProduct(content , '#radar' , titleRdr , tStrRdr , urlRdr(tDicRdr));
+        setProduct(content , '#satvsg' , titleSatVSg , tStrSat , urlSatVSg(tDicSat , tagSatArea , tagSatVSgPx));
+        setProduct(content , '#satvst' , titleSatVSt , tStrSat , urlSatVSt(tDicSat , tagSatArea , tagSatVStPx));
+        setProduct(content , '#satirc' , titleSatIRc , tStrSat , urlSatIRc(tDicSat , tagSatArea , tagSatIRPx));
+        setProduct(content , '#satire' , titleSatIRe , tStrSat , urlSatIRe(tDicSat , tagSatArea , tagSatIRPx));
+        setProduct(content , '#lgtn' , titleLtn , tStrLtn , urlLtn(tDicLtn));
+        setProduct(content , '#temp' , titleTemp , tStrTemp , urlTemp(tDicTemp));
+        setProduct(content , '#skt' , titleSkt , tStrSkt , urlSkt(tDicSkt));
     }
 
     const onTicks = (eventType, eventHandler) => on(tsTrack , 'div' , eventType , '.ts-ticks', eventHandler);
@@ -311,11 +315,11 @@ function time2BarWidth(t){
 }
 
 function rewind(t , int){
-    return (t - int * min2msec < tStart) ? tEndAll : t - int * min2msec;
+    return (t - int * MIN2MSEC < tStart) ? tEndAll : t - int * MIN2MSEC;
 }
 
 function forward(t , int){
-    return (t + int * min2msec > tEnd) ? tStartAll : t + int * min2msec;
+    return (t + int * MIN2MSEC > tEnd) ? tStartAll : t + int * MIN2MSEC;
 }
 
 function click2Time(e , track){
