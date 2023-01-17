@@ -1,9 +1,14 @@
 import * as TAG from './tagInfo.js'
 
+const ID_ZOOM = 'zoom';
+const ID_LINK = 'zm-link';
+const ID_IMG = 'zm-img';
 const TAG_COLLAPSE = TAG.COLLAPSE;
 const TIME_FADE = 10;
+const WIDTH_WINDOW = 800
+const HEIGHT_WINDOW = WIDTH_WINDOW
 
-window.addEventListener('DOMContentLoaded' , function(){
+document.addEventListener('DOMContentLoaded' , function(){
     showImages(TAG.MAIN , TAG.CLS_CONTENT , TAG.GALLERY_IMGS)
 })
 
@@ -11,9 +16,9 @@ function showImages(tagContainer , tagContent , tagImages){
     const imgs = document.querySelectorAll(tagImages);
     imgs.forEach(img => {
         img.onclick = () => {
-            const zoom = createZoom('zoom' , TAG_COLLAPSE , tagContainer , tagContent)
-            const zoomLk = createLink('zm-link' , img)
-            const zoomImg = createImage('zm-img' , img)
+            const zoom = createZoom(ID_ZOOM , TAG_COLLAPSE , tagContainer , tagContent)
+            const zoomLk = createLink(ID_LINK , img)
+            const zoomImg = createImage(ID_IMG , img)
             zoom.appendChild(zoomLk);
             zoomLk.appendChild(zoomImg);
             mutationObserver(img , zoomLk , zoomImg)
@@ -36,8 +41,8 @@ function createZoom(id , cls , tagContainer , tagContent){
 function createLink(id , img){
     const l = document.createElement('a');
     l.id = id;
-    l.href = img.src;
-    l.target = '_blank';
+    l.href = '#';
+    l.onclick = () => window.open(img.src , "_blank" , "width="+WIDTH_WINDOW+",height="+HEIGHT_WINDOW);
     return l
 }
 

@@ -1,7 +1,7 @@
-const homeGeojson = '/static/geomap/';
-const homeCWBOpendata = 'https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/';
-const homeCWBOpendata2 = 'https://cwbopendata.s3.ap-northeast-1.amazonaws.com/';
-const Authorization = 'CWB-D8D93D37-13E2-4637-A854-3EEFCEC990CF';
+const DIR_GEOJSON = '/static/geomap/';
+const DIR_CWB_OPEN = 'https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/';
+const DIR_CWB_OPEN2 = 'https://cwbopendata.s3.ap-northeast-1.amazonaws.com/';
+const AUTHORIZATION = 'CWB-D8D93D37-13E2-4637-A854-3EEFCEC990CF';
 
 const ukrainianFlag = '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8"><path fill="#4C7BE1" d="M0 0h12v4H0z"/><path fill="#FFD500" d="M0 4h12v3H0z"/><path fill="#E0BC00" d="M0 7h12v1H0z"/></svg>';
 const leafletAttribution = '<a href="https://leafletjs.com" title="Leaflet - 一個互動式地圖的JavaScript函式庫">' + (ukrainianFlag + ' ') + 'Leaflet</a>';
@@ -10,43 +10,38 @@ const cwbAttribution = '&copy; <a href="https://www.cwb.gov.tw/V8/C/information.
 const jtwcAttribution = '&copy; <a href="https://www.metoc.navy.mil/jtwc/jtwc.html?notices" target="_blank" title="氣象圖資來源：美軍聯合颱風警報中心">JTWC</a>';
 const osmAttribution = '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank" title="地圖來源：OpenStreetMap">OpenStreetMap</a>';
 
-const geojsonCountyUrl = `${homeGeojson}COUNTY_MOI_1090820.json`;
-const geojsonTownUrl = `${homeGeojson}TOWN_MOI_1091016.json`;
-const geojsonVillageUrl = `${homeGeojson}VILLAGE_MOI_1110426.json`;
+const geojsonCountyUrl = `${DIR_GEOJSON}COUNTY_MOI_1090820.json`;
+const geojsonTownUrl = `${DIR_GEOJSON}TOWN_MOI_1091016.json`;
+const geojsonVillageUrl = `${DIR_GEOJSON}VILLAGE_MOI_1110426.json`;
 
-const xmlStationUrl = `${homeCWBOpendata}O-A0003-001?Authorization=${Authorization}&downloadType=WEB&format=XML`;
-const xmlAutoStationUrl = `${homeCWBOpendata}O-A0001-001?Authorization=${Authorization}&downloadType=WEB&format=XML`;
-const xmlGaugeUrl = `${homeCWBOpendata}O-A0002-001?Authorization=${Authorization}&downloadType=WEB&format=XML`;
-const xmlQPEUrl = `${homeCWBOpendata}O-B0045-001?Authorization=${Authorization}&downloadType=WEB&format=XML`;
-const xmlQPFUrl = `${homeCWBOpendata}F-B0046-001?Authorization=${Authorization}&downloadType=WEB&format=XML`;
-const xmlRadarUrl = `${homeCWBOpendata}O-A0059-001?Authorization=${Authorization}&downloadType=WEB&format=XML`;
-const xmlRainUrl = `${homeCWBOpendata}O-A0040-004?Authorization=${Authorization}&downloadType=WEB&format=XML`;
-const xmlTempUrl = `${homeCWBOpendata}O-A0038-003?Authorization=${Authorization}&downloadType=WEB&format=XML`;
-const kmzRainUrl = `${homeCWBOpendata2}DIV2/O-A0040-003.kmz`;
-const kmzLtngUrl = `${homeCWBOpendata2}DIV2/O-A0039-001.kmz`;
-const kmzTempUrl = `${homeCWBOpendata2}DIV2/O-A0038-002.kmz`;
-const kmzSatVISUrl = `${homeCWBOpendata2}MSC/O-B0033-004.kmz`;
-const kmzSatIRUrl = `${homeCWBOpendata2}MSC/O-B0033-003.kmz`;
-const imgRadarUrl = `${homeCWBOpendata2}MSC/O-A0058-005.png`;
-const imgConvUrl = `${homeCWBOpendata2}MSC/O-B0054-001.png`;
-const imgQPF12Url = `${homeCWBOpendata2}MFC/F-C0035-015.png`;
-const imgQPF24Url = `${homeCWBOpendata2}MFC/F-C0035-017.png`;
-const imgSatVISUrl = `${homeCWBOpendata2}MSC/O-C0042-008.jpg`;
-const imgSatIRcUrl = `${homeCWBOpendata2}MSC/O-C0042-002.jpg`;
-const imgSatIRgUrl = `${homeCWBOpendata2}MSC/O-C0042-004.jpg`;
-const imgSatIReUrl = `${homeCWBOpendata2}MSC/O-C0042-006.jpg`;
-const kmzTyNewsUrl = `${homeCWBOpendata}W-C0034-002?Authorization=${Authorization}&downloadType=WEB&format=KMZ`;
-const xmlTyTrackUrl = `${homeCWBOpendata}W-C0034-005?Authorization=${Authorization}&downloadType=WEB&format=XML`;
+const xmlStationUrl = `${DIR_CWB_OPEN}O-A0003-001?Authorization=${AUTHORIZATION}&downloadType=WEB&format=XML`;
+const xmlAutoStationUrl = `${DIR_CWB_OPEN}O-A0001-001?Authorization=${AUTHORIZATION}&downloadType=WEB&format=XML`;
+const xmlGaugeUrl = `${DIR_CWB_OPEN}O-A0002-001?Authorization=${AUTHORIZATION}&downloadType=WEB&format=XML`;
+const xmlQPEUrl = `${DIR_CWB_OPEN}O-B0045-001?Authorization=${AUTHORIZATION}&downloadType=WEB&format=XML`;
+const xmlQPFUrl = `${DIR_CWB_OPEN}F-B0046-001?Authorization=${AUTHORIZATION}&downloadType=WEB&format=XML`;
+const xmlRadarUrl = `${DIR_CWB_OPEN}O-A0059-001?Authorization=${AUTHORIZATION}&downloadType=WEB&format=XML`;
+const xmlRainUrl = `${DIR_CWB_OPEN}O-A0040-004?Authorization=${AUTHORIZATION}&downloadType=WEB&format=XML`;
+const xmlTempUrl = `${DIR_CWB_OPEN}O-A0038-003?Authorization=${AUTHORIZATION}&downloadType=WEB&format=XML`;
+const kmzRainUrl = `${DIR_CWB_OPEN2}DIV2/O-A0040-003.kmz`;
+const kmzLtngUrl = `${DIR_CWB_OPEN2}DIV2/O-A0039-001.kmz`;
+const kmzTempUrl = `${DIR_CWB_OPEN2}DIV2/O-A0038-002.kmz`;
+const kmzSatVISUrl = `${DIR_CWB_OPEN2}MSC/O-B0033-004.kmz`;
+const kmzSatIRUrl = `${DIR_CWB_OPEN2}MSC/O-B0033-003.kmz`;
+const imgRadarUrl = `${DIR_CWB_OPEN2}MSC/O-A0058-005.png`;
+const imgConvUrl = `${DIR_CWB_OPEN2}MSC/O-B0054-001.png`;
+const imgQPF12Url = `${DIR_CWB_OPEN2}MFC/F-C0035-015.png`;
+const imgQPF24Url = `${DIR_CWB_OPEN2}MFC/F-C0035-017.png`;
+const imgSatVISUrl = `${DIR_CWB_OPEN2}MSC/O-C0042-008.jpg`;
+const imgSatIRcUrl = `${DIR_CWB_OPEN2}MSC/O-C0042-002.jpg`;
+const imgSatIRgUrl = `${DIR_CWB_OPEN2}MSC/O-C0042-004.jpg`;
+const imgSatIReUrl = `${DIR_CWB_OPEN2}MSC/O-C0042-006.jpg`;
+const kmzTyNewsUrl = `${DIR_CWB_OPEN}W-C0034-002?Authorization=${AUTHORIZATION}&downloadType=WEB&format=KMZ`;
+const xmlTyTrackUrl = `${DIR_CWB_OPEN}W-C0034-005?Authorization=${AUTHORIZATION}&downloadType=WEB&format=XML`;
 const kmzJTWCUrl = 'https://www.metoc.navy.mil/jtwc/products/wp1222.kmz';
-const hdfSat065Url = `${homeCWBOpendata2}DIV4/O-A0043-001.hdf`;
-// const imgWtrMapUrl = `${homeCWBOpendata2}MFC/F-C0035-001.jpg`;
-// const imgRadarBounds = [[17.992071044171471, 115.001445629639946], [29.004257649173013, 126.514775012745119]];
-// const imgRadarBounds = [[17.9875, 114.9875], [29.0125, 126.5125]];
-// const imgRadarBounds = [[17.72, 115.00], [29.0125, 126.5125]];
+const hdfSat065Url = `${DIR_CWB_OPEN2}DIV4/O-A0043-001.hdf`;
 const imgRadarBounds = [[17.72, 114.95], [29.0125, 126.5125]];
 const imgQPFBounds = [[21.8, 118.95], [25.8, 122.45]];
 const imgSatBounds = [[19.100625745 - 0.05, 115.976888855], [28.29937425 - 0.1, 126.02300114]];
-// const imgWtrMapBounds = [[-1, 80], [48, 175]];
 
 const optionsXmlGrd = {fillOpacity: 0.5 , attribution: cwbAttribution};
 const optionsXmlSation = {color: '#ff6363' , fillOpacity: 1 , radius: 2.5 , attribution: cwbAttribution};
@@ -92,7 +87,12 @@ var opts = {
     },
 };
 
+let overlays_bound = {};
+let latlng;
+
 document.addEventListener("DOMContentLoaded" , function(){
+    const SIDEMENU = document.querySelector('.sidemenu')
+
     var map = L.map('map' , {   // 放置地圖
         center: [23.8, 121],    // 中心點座標
         zoom: 7,                // 0 - 18
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded" , function(){
         apiKeys: {thunderforest: '5ecc17cc36d44ed1ac63d35df0fd56e7' , google: 'AIzaSyAxfK5uv5MVnV51Y7THaBzNclplGe_PabA'},
         plugins: [
             "geojson-vt@3.2.1/geojson-vt.js",
-            "leaflet.vectorgrid@1.3.0/dist/Leaflet.VectorGrid.js"
+            "leaflet.vectorgrid@1.3.0/dist/Leaflet.VectorGrid.js",
         ],
 
         mapTypes: {         // 設定圖層來源
@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded" , function(){
         },
     });
 
-    map.on('plugins_loaded', function() {
+    map.on('plugins_loaded', function(){
         const overlays = {};
         const cl = new L.Control.Layers(null , overlays , {collapsed: false}).addTo(map);
 
@@ -212,60 +212,20 @@ document.addEventListener("DOMContentLoaded" , function(){
         var ty2 = addLayer('xmlTy' , 'ty' , '颱風-CWB路徑資訊' , xmlTyTrackUrl , null , null , optionsTyTrack)
         // var sat = addLayer('kmzTy' , 'sat' , '衛星-可見光' , kmzSatVISUrl , null , null , optionsTyTrack)
         
-        var geojsonCounty = getGeojson(geojsonCountyUrl , optionsBnd)
-        var geojsonTown = getGeojson(geojsonTownUrl , optionsBnd)
-        var geojsonVillage = getGeojson(geojsonVillageUrl , optionsBnd)
+        // var geojsonCounty = getGeojson(geojsonCountyUrl , optionsBnd)
+        // var geojsonTown = getGeojson(geojsonTownUrl , optionsBnd)
+        // var geojsonVillage = getGeojson(geojsonVillageUrl , optionsBnd)
 
-        geojsonCounty.addTo(map);
-        const overlays_bnd = {
-            '縣市界': geojsonCounty , 
-            '鄉鎮區界': geojsonTown , 
-            '村里界': geojsonVillage , 
-        };
-        const clb = new L.Control.Layers(null , overlays_bnd , {collapsed: false}).addTo(map);
-
-        // Instantiate KMZ layer (async)
-        // L.kmzImageOverlay = function(url , bounds) {
-        //     return new L.KMZImageOverlay(url , bounds)
-        // }
-        // const rain = L.kmzImageOverlay(kmzRainUrl , imgQPFBounds , {
-        //     opacity: 0.5,
-        //     attribution: attribution,
-        // });
-        
-        // var overlays = {
-        //     '雷達': {
-        //         // '回波': radar , 
-        //         // '回波2': radar2 , 
-        //         '對流胞': conv , 
-        //         '1h QPE': qpe , 
-        //         '1h QPF': qpf , 
-        //     },
-        //     '閃電': {
-        //         '即時': ltng , 
-        //     }, 
-        //     '地面': {
-        //         '局屬站': station , 
-        //         '自動站': autoStation , 
-        //         '雨量站': gauge , 
-        //         '日累積雨量': rain , 
-        //         '氣溫': temp , 
-        //     },
-        //     'QPF': {
-        //         '0-12h': qpf12 , 
-        //         '12-24h': qpf24 , 
-        //     },
-        //     '衛星': {
-        //         '可見光': satvistw , 
-        //         'IR彩色': satirctw , 
-        //         'IR黑白': satirgtw , 
-        //         'IR色調強化': satiretw , 
-        //     }
+        // geojsonCounty.addTo(this);
+        // overlays_bound['縣市界'] = geojsonCounty;
+        // overlays_bound['鄉鎮區界'] = NULL;
+        // overlays_bound['村里界'] = NULL;
+        // var overlays_bnd = {
+        //     '縣市界': geojsonCounty , 
+        //     // '鄉鎮區界': geojsonTown , 
+        //     // '村里界': geojsonVillage , 
         // };
-
-        // sat = L.kmzLayer(kmzSatVISUrl , setRequestHeaderTy , optionsTyTrack);
-        // sat.addTo(map);
-        // cl.addOverlay(sat , '衛星-可見光');
+        const clb = new L.Control.Layers(null , overlays_bound , {collapsed: false}).addTo(this);
         
         addRemoveLayer('xmlGrd' , 'radar' , '#rdr1' , '雷達-整合回波' , xmlRadarUrl , null , radar , optionsXmlGrd)
         addRemoveLayer('pic' , 'conv' , '#rdr2' , '雷達-對流胞偵測' , imgConvUrl , imgRadarBounds , null , optionsPic)
@@ -315,74 +275,15 @@ document.addEventListener("DOMContentLoaded" , function(){
         }
 
 
-        // function check_all(obj, cName){
-        //     var checkboxs = $('input[class="' + cName + '"]');
-        //     for(var i = 0 ; i < checkboxs.length ; i++){
-        //         checkboxs[i].checked = obj.checked;
-        //         if (checkboxs[i].checked) {
-        //             console.log('checked')
-        //         } else {
-        //             console.log('not checked')
-        //         }
-        //     }
-        // };
-
-        // document.querySelector('#rdr0').addEventListener('change' , function(){
-        //     check_all(this, 'rdr');
-        // })
-
-        // var test = document.querySelectorAll('input[class="rdr"]');
-        // for(var i = 0 ; i < test.length ; i++) {
-        //     test[i].addEventListener('change' , function(){
-        //         console.log('change' + i)
-        //     })
-        // }
-        // test.addEventListener('change' , function(){
-        //     for(var i = 0 ; i < this.length ; i++) {console.log('change')}
-        // })
-        // console.log(document.querySelectorAll('input[class="rdr"]').length)
-
-        // document.querySelector('.rdr').addEventListener('input' , function(){
-        //     console.log('change')
-        // })
-
         document.querySelector('#rdr1').addEventListener('change' , function(){
-            document.querySelector('#cbr1').checked = this.checked ? true : false;
-            document.querySelector('#cbr1').disabled = this.checked ? false : true;
+            document.querySelector('#cbr1').checked = this.checked;
+            document.querySelector('#cbr1').disabled = !this.checked;
             document.querySelector('#cbr1').checked ? legend = new L.Control.RadarDBZColorbar({position: 'bottomleft'}).addTo(map) : legend.remove();
         })
         document.querySelector('#cbr1').addEventListener('change' , function(){
             this.checked ? legend = new L.Control.RadarDBZColorbar({position: 'bottomleft'}).addTo(map) : legend.remove();
         })
 
-        // if (document.querySelector('#radar1').checked) document.querySelector('#cbr1').checked = true;
-        // document.querySelector('#cbr1').addEventListener('change' , function(){
-        //     if (this.checked) {
-        //         legend = new L.Control.RadarDBZColorbar({position: 'bottomleft'}).addTo(map);
-        //     } else {
-        //         legend.remove();
-        //     }
-        // })
-
-        // var controlBaseOpacity = new L.Control.OpacitySlider(radar, opts.opacityBaseControl.options);
-        // var controlOverlayOpacity = new L.Control.OpacitySlider(rain, opts.opacityOverlayControl.options);
-        // controlBaseOpacity.addTo(map);
-        // controlOverlayOpacity.addTo(map);
-
-        // fetch(kmlTestUrl)
-        // .then(res => res.text())
-        // .then(kmltext => {
-        //     // Create new kml overlay
-        //     const parser = new DOMParser();
-        //     const kml = parser.parseFromString(kmltext, 'text/xml');
-        //     const track = new L.KML(kml);
-        //     // console.log(track)
-        //     map.addLayer(track);
-
-        //     // Adjust map to show the kml
-        //     const bounds = track.getBounds();
-        //     map.fitBounds(bounds);
-        // });
 
         var legend = new L.Control.RadarDBZColorbar({position: 'bottomleft'}).addTo(map);
         // var timeSlider = new L.Control.TimeSlider({position: 'bottomcenter'}).addTo(map);
@@ -402,14 +303,43 @@ document.addEventListener("DOMContentLoaded" , function(){
         // map.removeControl(z)
     });
 
-    map.on('mousemove', (e) => {
+    map.on('mousemove', e => {
         latlng._container.innerHTML = LatLngHTML(e);
     });
+
+    // clickProductList(SIDEMENU)
 })
 
-function check(id) {
-    document.querySelector('#' + id).checked = true;
+// function addBound(){
+//     overlays_bnd.push({
+
+//     })
+// }
+
+function clickProductList(menu){
+    let lis = menu.querySelectorAll('.m-li');
+    lis.forEach(li => {
+        li.onclick = () => {
+            li.querySelector('input').checked = !li.querySelector('input').checked;
+        }
+    })
 }
+
+// function actionCheck(id){
+//     document.querySelector(id).addEventListener('click' , function(){
+//         if (this.checked) {
+//             console.log('checked')
+//         } else {
+//             console.log('not checked')
+//         }
+//     })
+// }
+
+// function checkAll(grp) {
+//     grp.querySelector('a>input').addEventListener('change' , function(){
+
+//     });
+// }
 
 function getGeojson(url , options) {
     var xhr = new XMLHttpRequest()
@@ -480,45 +410,10 @@ L.Map.include({
     }
 });
 
-// L.Control.Pegman = L.Control.Pegman.extend(
-//     {
-//         onAdd: function(map) {
-//             this._map = map;
-  
-//             this._container = L.DomUtil.create('div', 'leaflet-pegman pegman-control leaflet-bar');
-//             this._pegman = L.DomUtil.create('div', 'pegman draggable drag-drop', this._container);
-//             this._pegmanButton = L.DomUtil.create('div', 'pegman-button', this._container);
-//             this._pegmanMarker = L.marker([0, 0], this.options.marker);
-//             this._panoDiv = this.options.panoDiv ? document.querySelector(this.options.panoDiv) : L.DomUtil.create('div', '', this._map._container);
-  
-//             L.DomUtil.addClass(this._panoDiv, 'pano-canvas');
-//             L.DomUtil.addClass(this._map._container, this.options.theme);
-  
-//             L.DomEvent.disableClickPropagation(this._panoDiv);
-//             // L.DomEvent.on(this._container, 'click mousedown touchstart dblclick', this._disableClickPropagation, this);
-//             L.DomEvent.on(this._container, 'click mousedown dblclick', this._disableClickPropagation, this);
-  
-//             this._container.addEventListener('touchstart', this._loadScripts.bind(this, !L.Browser.touch), { once: true });
-//             this._container.addEventListener('mousedown', this._loadScripts.bind(this, true), { once: true });
-//             this._container.addEventListener('mouseover', this._loadScripts.bind(this, false), { once: true });
-  
-//             this._loadInteractHandlers();
-//             this._loadGoogleHandlers();
-  
-//             L.DomEvent.on(document, 'mousemove', this.mouseMoveTracking, this);
-//             L.DomEvent.on(document, 'keyup', this.keyUpTracking, this);
-  
-//             this._pegmanMarker.on("dragend", this.onPegmanMarkerDragged, this);
-//             this._map.on("click", this.onMapClick, this);
-//             this._map.on("layeradd", this.onMapLayerAdd, this);
-  
-//             return this._container;
-//         },
-//         pegmanAdd: function() {
-//             this._pegmanMarker.addTo(this._map);
-//             this._pegmanMarker.setLatLng(this._pegmanMarkerCoords);
-//             this.findStreetViewData(this._pegmanMarkerCoords.lat, this._pegmanMarkerCoords.lng);
-//             this._updateClasses("pegman-added");
-//         },
-//     }
-// );
+function mutationObserver(img , zoomLk , zoomImg){
+    new MutationObserver(muts => {
+        muts.forEach(mut => {
+            if (mut.type === 'attributes') zoomLk.href = zoomImg.src = img.src;
+        })
+    }).observe(img , {attributes: true});
+}

@@ -4,7 +4,7 @@
     height: 100%;
     width: 300px;
     background-color: rgba(37, 45, 56, 1);
-    display: flex;
+    display: block;
     overflow: hidden auto;
     /* flex-direction: column; */
     justify-content: center;

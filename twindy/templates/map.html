@@ -10,23 +10,23 @@
 {% block link %}
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"/>
+<link rel="stylesheet" href="{% static '/pkg/leaflet/1.7.0/leaflet.css' %}"/>
 <link rel="stylesheet" href="{% static '/css/map.css' %}"/>
 <link rel="stylesheet" href="{% static '/css/leaflet.css' %}"/>
 {% endblock %}
 {% block script %}
-<script src="https://unpkg.com/leaflet@1.7.0/dist/leaflet-src.js"></script>
-<script src="https://unpkg.com/leaflet-ui@0.5.9/dist/leaflet-ui-src.js"></script>
+<script src="{% static '/pkg/leaflet/1.7.0/leaflet-src.js' %}"></script>
+<script src="{% static '/pkg/leaflet-ui/0.5.9/leaflet-ui.js' %}"></script>
+<script src="{% static '/pkg/leaflet-rotatedmarker/0.2.0/leaflet.rotatedMarker.js' %}"></script>
 <!-- <script src="https://unpkg.com/leaflet-kmz@1.0.8/dist/leaflet-kmz-src.js"></script> -->
 <script src="{% static '/js/leaflet-kmz-src.js' %}"></script>
-<script src="https://unpkg.com/leaflet-rotatedmarker@0.2.0/leaflet.rotatedMarker.js"></script>
 <!-- <script src="https://cdn.jsdelivr.net/npm/jsfive@0.3.10/dist/browser/hdf5.js"></script> -->
 <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxfK5uv5MVnV51Y7THaBzNclplGe_PabA&callback=initMap"></script> -->
 <!-- <script src="https://unpkg.com/leaflet-pointable@0.0.4/leaflet-pointable.js"></script> -->
 <!-- <script src="https://unpkg.com/leaflet-transparency@latest/leaflet-transparency.js"></script> -->
 <!-- <script src="https://unpkg.com/leaflet-groupedlayercontrol@0.6.1/dist/leaflet.groupedlayercontrol.min.js"></script> -->
 <!-- <script src="../js/apiRequest.js"></script> -->
-<script src="{% static '/js/leaflet.js' %}"></script>
+<script src="{% static '/js/weatherMap.js' %}"></script>
 <!-- <script src="../js/L.KML.js"></script> -->
 <script src="{% static '/js/readKMZ.js' %}"></script>
 <script src="{% static '/js/readXMLWeather.js' %}"></script>
@@ -46,15 +46,8 @@
         });
     });
     function check_all(obj, cName){
-        var checkboxs = $('input[class="' + cName + '"]');
-        for(var i = 0 ; i < checkboxs.length ; i++){
-            checkboxs[i].checked = obj.checked;
-            if (checkboxs[i].checked) {
-                console.log(checkboxs[i].id + 'checked')
-            } else {
-                console.log(checkboxs[i].id + 'not checked')
-            }
-        }
+        let cbs = document.querySelectorAll('.' + cName);
+        cbs.forEach(cb => cb.checked = obj.checked);
     };
 </script>
 <!-- <script>
@@ -77,54 +70,61 @@
 
 {% block sidemenu %}
 <div class="sidemenu">
+    <ul id="menu-bnd">
+        <li>
+            <ul class="inmenu bnd-list">
+                <li class="im-li"><input type="checkbox" value="1" id="bnd1" class="cbox bnd"><span>底圖</span></li>
+            </ul>
+        </li>
+    </ul>
     <ul id="menu">
-        <li>
-            <a href="#"><input type="checkbox" value="0" id="rdr0" class="rdr" onchange="check_all(this, 'rdr')"><span>雷達</span></a>
+        <li class="g-li">
+            <a href="#" class="m-li"><input type="checkbox" value="0" id="rdr0" class="cbox rdr" onchange="check_all(this, 'rdr')"><span>雷達</span></a>
             <ul class="inmenu rdr-list">
-                <li><input type="checkbox" value="1" id="rdr1" class="rdr"><span>整合回波</span><div><input type="checkbox" id="cbr1"><div>例</div></div></li>
-                <li><input type="checkbox" value="2" id="rdr2" class="rdr"><span>對流胞偵測</span></li>
-                <li><input type="checkbox" value="3" id="rdr3" class="rdr"><span>1h QPE</span></li>
-                <li><input type="checkbox" value="4" id="rdr4" class="rdr"><span>1h QPF</span></li>
+                <li class="m-li"><input type="checkbox" value="1" id="rdr1" class="cbox rdr"><span>整合回波</span><div><input type="checkbox" id="cbr1"><div>例</div></div></li>
+                <li class="m-li"><input type="checkbox" value="2" id="rdr2" class="cbox rdr"><span>對流胞偵測</span></li>
+                <li class="m-li"><input type="checkbox" value="3" id="rdr3" class="cbox rdr"><span>1h QPE</span></li>
+                <li class="m-li"><input type="checkbox" value="4" id="rdr4" class="cbox rdr"><span>1h QPF</span></li>
             </ul>
         </li>
-        <li>
-            <a href="#"><input type="checkbox" value="0" id="ltng0" class="ltng" onchange="check_all(this, 'ltng')"><span>閃電</span></a>
+        <li class="g-li">
+            <a href="#" class="m-li"><input type="checkbox" value="0" id="ltng0" class="cbox ltng" onchange="check_all(this, 'ltng')"><span>閃電</span></a>
             <ul class="inmenu ltng-list">
-                <li><input type="checkbox" value="1" id="ltng1" class="ltng"><span>即時觀測</span></li>
+                <li class="m-li"><input type="checkbox" value="1" id="ltng1" class="cbox ltng"><span>即時觀測</span></li>
             </ul>
         </li>
-        <li>
-            <a href="#"><input type="checkbox" value="0" id="stn0" class="stn" onchange="check_all(this, 'stn')"><span>測站</span></a>
+        <li class="g-li">
+            <a href="#" class="m-li"><input type="checkbox" value="0" id="stn0" class="cbox stn" onchange="check_all(this, 'stn')"><span>測站</span></a>
             <ul class="inmenu stn-list">
-                <li><input type="checkbox" value="1" id="stn1" class="stn"><span>局屬氣象站</span></li>
-                <li><input type="checkbox" value="2" id="stn2" class="stn"><span>自動氣象站</span></li>
-                <li><input type="checkbox" value="3" id="stn3" class="stn"><span>自動雨量站</span></li>
-                <li><input type="checkbox" value="4" id="stn4" class="stn"><span>日累積雨量圖</span></li>
-                <li><input type="checkbox" value="5" id="stn5" class="stn"><span>氣溫分布圖</span></li>
+                <li class="m-li"><input type="checkbox" value="1" id="stn1" class="cbox stn"><span>局屬氣象站</span></li>
+                <li class="m-li"><input type="checkbox" value="2" id="stn2" class="cbox stn"><span>自動氣象站</span></li>
+                <li class="m-li"><input type="checkbox" value="3" id="stn3" class="cbox stn"><span>自動雨量站</span></li>
+                <li class="m-li"><input type="checkbox" value="4" id="stn4" class="cbox stn"><span>日累積雨量圖</span></li>
+                <li class="m-li"><input type="checkbox" value="5" id="stn5" class="cbox stn"><span>氣溫分布圖</span></li>
             </ul>
         </li>
-        <li>
-            <a href="#"><input type="checkbox" value="0" id="qpf0" class="qpf" onchange="check_all(this, 'qpf')"><span>QPF</span></a>
+        <li class="g-li">
+            <a href="#" class="m-li"><input type="checkbox" value="0" id="qpf0" class="cbox qpf" onchange="check_all(this, 'qpf')"><span>QPF</span></a>
             <ul class="inmenu qpf-list">
-                <li><input type="checkbox" value="1" id="qpf1" class="qpf"><span>0-12h</span></li>
-                <li><input type="checkbox" value="2" id="qpf2" class="qpf"><span>12-24h</span></li>
+                <li class="m-li"><input type="checkbox" value="1" id="qpf1" class="cbox qpf"><span>0-12h</span></li>
+                <li class="m-li"><input type="checkbox" value="2" id="qpf2" class="cbox qpf"><span>12-24h</span></li>
             </ul>
         </li>
-        <li>
-            <a href="#"><input type="checkbox" value="0" id="sat0" class="sat" onchange="check_all(this, 'sat')"><span>衛星</span></a>
+        <li class="g-li">
+            <a href="#" class="m-li"><input type="checkbox" value="0" id="sat0" class="cbox sat" onchange="check_all(this, 'sat')"><span>衛星</span></a>
             <ul class="inmenu sat-list">
-                <li><input type="checkbox" value="1" id="sat1" class="sat"><span>可見光雲圖</span></li>
-                <li><input type="checkbox" value="2" id="sat2" class="sat"><span>IR彩色雲圖</span></li>
-                <li><input type="checkbox" value="3" id="sat3" class="sat"><span>IR黑白雲圖</span></li>
-                <li><input type="checkbox" value="4" id="sat4" class="sat"><span>IR色調強化雲圖</span></li>
+                <li class="m-li"><input type="checkbox" value="1" id="sat1" class="cbox sat"><span>可見光雲圖</span></li>
+                <li class="m-li"><input type="checkbox" value="2" id="sat2" class="cbox sat"><span>IR彩色雲圖</span></li>
+                <li class="m-li"><input type="checkbox" value="3" id="sat3" class="cbox sat"><span>IR黑白雲圖</span></li>
+                <li class="m-li"><input type="checkbox" value="4" id="sat4" class="cbox sat"><span>IR色調強化雲圖</span></li>
             </ul>
         </li>
-        <li>
-            <a href="#"><input type="checkbox" value="0" id="ty0" class="ty" onchange="check_all(this, 'ty')"><span>颱風</span></a>
+        <li class="g-li">
+            <a href="#" class="m-li"><input type="checkbox" value="0" id="ty0" class="cbox ty" onchange="check_all(this, 'ty')"><span>颱風</span></a>
             <ul class="inmenu ty-list">
-                <li><input type="checkbox" value="1" id="ty1" class="ty"><span>CWB潛勢路徑</span></li>
-                <li><input type="checkbox" value="2" id="ty2" class="ty"><span>CWB路徑資訊</span></li>
-                <li><input type="checkbox" value="3" id="ty3" class="ty"><span>JTWC潛勢路徑</span></li>
+                <li class="m-li"><input type="checkbox" value="1" id="ty1" class="cbox ty"><span>CWB潛勢路徑</span></li>
+                <li class="m-li"><input type="checkbox" value="2" id="ty2" class="cbox ty"><span>CWB路徑資訊</span></li>
+                <li class="m-li"><input type="checkbox" value="3" id="ty3" class="cbox ty"><span>JTWC潛勢路徑</span></li>
                 <!-- <li><div id="slider" style="height:200px;"></div></li> -->
             </ul>
         </li>

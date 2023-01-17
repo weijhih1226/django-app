@@ -125,6 +125,9 @@ input[type=checkbox]:checked {
 .inmenu {
     display: none;
 }
+.bnd-list {
+    display: block;
+}
 .rdr-list {
     display: block;
 }
@@ -138,6 +141,7 @@ input[type=checkbox]:checked {
     background-color: rgba(37, 45, 56, 1);
     display: flex;
     transition: .5s;
+    cursor: pointer;
 }
 .inmenu>li:hover {
     background-color: rgba(74, 90, 112, 1);

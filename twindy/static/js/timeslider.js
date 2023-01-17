@@ -43,12 +43,6 @@ const tStartAll = tAll5Min[1];
 const tEndAll = tAll5Min[tAll5Min.length - 1];
 var tSelect = tEndAll;
 
-function setStyle(el , style){
-    for (var property in style){
-        el.style[property] = style[property];
-    }
-}
-
 function createElement(tagName , id , cls){
     const el = document.createElement(tagName);
     if (id !== null) el.id = id;
