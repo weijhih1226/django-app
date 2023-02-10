@@ -27,7 +27,13 @@
 
 {% block content %}
 <div class="content collapse">
-    <div id="rain" class="product">
+    {% for o in image_block %}
+        <div id={{ o.block_name }} class="product">
+            <div class="header"><div class="title">{{ o.block_dname }}</div><div class="time"></div></div>
+            <div class="pic"><a target="_blank"><img title={{ o.block_dname }} alt={{ o.block_dname }}></a></div>
+        </div>
+    {% endfor %}
+    <!-- <div id="rain" class="product">
         <div class="header"><div class="title">日雨量</div><div class="time"></div></div>
         <div class="pic"><a target="_blank"><img title="Rainfall Daily" alt="Rainfall Daily"></a></div>
     </div>
@@ -74,7 +80,7 @@
     <div id="ty-t2" class="product">
         <div class="header"><div class="title">各國颱風路徑</div><div class="time"></div></div>
         <div class="pic"><a target="_blank"><img title="Typhoon 2000" alt="Typhoon 2000"></a></div>
-    </div>
+    </div> -->
     <a href="#" class="btn-goTop btn-content collapse"><i class="zmdi zmdi-long-arrow-up"></i></a>
 </div>
 <div id="timeslider"></div>
@@ -108,6 +114,18 @@
                 <li><input type="radio" value="5" name="ty" id="ty-cmc" class="menu-ty-list"><span>加拿大（CMC-GEM）</span></li>
                 <li><input type="radio" value="6" name="ty" id="ty-fnmoc" class="menu-ty-list"><span>美國（FNMOC-NAVGEM）</span></li>
                 <li><input type="radio" value="7" name="ty" id="ty-jma" class="menu-ty-list"><span>日本（JMA-GSM）</span></li>
+            </ul>
+        </li>
+        <li id="menu-skt">
+            <a href="#"><span>探空</span></a>
+            <ul class="inmenu ty-list">
+                <li><input type="radio" value="1" name="skt" id="skt-tp" class="menu-skt-list" checked><span>台北</span></li>
+                <li><input type="radio" value="2" name="skt" id="skt-ds" class="menu-skt-list"><span>東沙島</span></li>
+                <li><input type="radio" value="3" name="skt" id="skt-hl" class="menu-skt-list"><span>花蓮</span></li>
+                <li><input type="radio" value="4" name="skt" id="skt-pt" class="menu-skt-list"><span>屏東</span></li>
+                <li><input type="radio" value="5" name="skt" id="skt-mk" class="menu-skt-list"><span>馬公</span></li>
+                <li><input type="radio" value="6" name="skt" id="skt-pj" class="menu-skt-list"><span>彭佳嶼</span></li>
+                <li><input type="radio" value="7" name="skt" id="skt-gi" class="menu-skt-list"><span>綠島</span></li>
             </ul>
         </li>
     </ul>
