@@ -44,6 +44,7 @@ let tagSatArea = 'TWI';
 let tagSatVSgPx = '1350';
 let tagSatVStPx = '1375';
 let tagSatIRPx = '800';
+let tagSkt = '46692';
 let fcstTyCWB = 72;
 
 let titleRn = '日雨量';
@@ -55,7 +56,7 @@ let titleSatIRe = '衛星-色調強化';
 let titleLtn = '閃電';
 let titleTemp = '氣溫';
 let titleUvi = '紫外線指數';
-let titleSkt = '探空';
+let titleSkt = '探空-臺北';
 let titleTyCWB = 'CWB颱風路徑';
 let titleTyT2 = '各國颱風路徑';
 
@@ -67,6 +68,8 @@ let arrayTagSatVStPx = ['1375' , '2750' , '2750'];
 let arrayTagSatIRPx = ['800' , '2750' , '2750'];
 let arrayTagTyT2 = ['ALL' , 'ALL' , 'NCEP-GFS' , 'UKMO-UM' , 'CMC-GEM' , 'FNMOC-NAVGEM' , 'JMA-GSM'];
 let arrayTitleTyT2 = ['各國颱風路徑' , '各國颱風路徑' , 'NCEP颱風路徑' , 'UK颱風路徑' , 'CMC颱風路徑' , 'FNMOC颱風路徑' , 'JMA颱風路徑'];
+let arrayTagSkt = ['46692' , '46810' , '46699' , '46750' , '46734' , '46695' , '46780'];
+let arrayTitleSkt = ['探空-臺北' , '探空-東沙' , '探空-花蓮' , '探空-屏東' , '探空-馬公' , '探空-彭佳嶼' , '探空-綠島'];
 
 let urlRn = (dt , type) => HOME_CWB + 'rainfall/' + (dt.Y+'-'+dt.M+'-'+dt.D+'_'+dt.h+dt.m) + '.QZ' + type + '8.jpg';
 let urlRdr = (dt) => HOME_CWB + 'radar/CV1_TW_3600_' + (dt.Y+dt.M+dt.D+dt.h+dt.m) + '.png';
@@ -76,7 +79,7 @@ let urlSatIRc = (dt , area , px) => HOME_CWB + 'satellite/' + area + '_IR1_CR_' 
 let urlSatIRe = (dt , area , px) => HOME_CWB + 'satellite/' + area + '_IR1_MB_' + px + '/' + area + '_IR1_MB_' + px + '-' + (dt.Y+'-'+dt.M+'-'+dt.D+'-'+dt.h+'-'+dt.m) + '.jpg';
 let urlLtn = (dt) => HOME_CWB + 'lightning/' + (dt.Y+dt.M+dt.D+dt.h+dt.m) + '00_lgtl.jpg';
 let urlTemp = (dt) => HOME_CWB + 'temperature/' + (dt.Y+'-'+dt.M+'-'+dt.D+'_'+dt.h) + '00.GTP8.jpg';
-let urlSkt = (dt) => HOME_CWB2 + 'irisme_data/Weather/SKEWT/SKW___000_' + (dt.Y.substring(2,4)+dt.M+dt.D+dt.h) + '_46692.gif';
+let urlSkt = (dt , stn) => HOME_CWB2 + 'irisme_data/Weather/SKEWT/SKW___000_' + (dt.Y.substring(2,4)+dt.M+dt.D+dt.h) + '_' + stn + '.gif';
 let urlTyCWB = (dt , fcst) => HOME_CWB + 'typhoon/TY_NEWS/PTA_' + (dt.Y+dt.M+dt.D+dt.h) + '00-' + fcst + '_zhtw.png';
 let urlTyT2 = (dt , mdl) => HOME_T2 + (dt.Y+dt.M+dt.D+dt.h) + '00_' + mdl + '.PNG';
 let urlUvi = () => HOME_CWB + 'UVI/UVI.png';
@@ -86,6 +89,7 @@ document.addEventListener('DOMContentLoaded' , function(){
     const menuRn = document.querySelector('#menu-rain');
     const menuSat = document.querySelector('#menu-sat');
     const menuTy = document.querySelector('#menu-ty');
+    const menuSkt = document.querySelector('#menu-skt');
 
     // Default
     setProduct(content , '#rain' , titleRn , tStrRn , urlRn(tDicRn , tagRn));
@@ -97,7 +101,7 @@ document.addEventListener('DOMContentLoaded' , function(){
     setProduct(content , '#lgtn' , titleLtn , tStrLtn , urlLtn(tDicLtn));
     setProduct(content , '#temp' , titleTemp , tStrTemp , urlTemp(tDicTemp));
     setProduct(content , '#uvi' , titleUvi , tStrUvi , urlUvi());
-    setProduct(content , '#skt' , titleSkt , tStrSkt , urlSkt(tDicSkt));
+    setProduct(content , '#skt' , titleSkt , tStrSkt , urlSkt(tDicSkt , tagSkt));
     setProduct(content , '#ty-cwb' , titleTyCWB , tStrTyCWB , urlTyCWB(tDicTyCWB , fcstTyCWB));
     setProduct(content , '#ty-t2' , titleTyT2 , tStrTyT2 , urlTyT2(tDicTyT2 , tagTyT2));
 
@@ -133,6 +137,13 @@ document.addEventListener('DOMContentLoaded' , function(){
             titleTyT2 = this.dataset.title;
             tagTyT2 = this.dataset.urlTag;
             setProduct(content , '#ty-t2' , titleTyT2 , tStrTyT2 , urlTyT2(tDicTyT2 , tagTyT2));
+        }
+    })
+    menuSkt.querySelectorAll('.menu-skt-list').forEach((el , i) => {
+        el.onclick = function(){
+            titleSkt = this.dataset.title;
+            tagSkt = this.dataset.urlTag;
+            setProduct(content , '#skt' , titleSkt , tStrSkt , urlSkt(tDicSkt , tagSkt));
         }
     })
 })

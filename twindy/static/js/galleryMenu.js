@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded' , function(){
     const menuRn = document.querySelector('#menu-rain');
     const menuSat = document.querySelector('#menu-sat');
     const menuTy = document.querySelector('#menu-ty');
+    const menuSkt = document.querySelector('#menu-skt');
 
     menuRn.querySelector('#rain-d').setAttribute('data-title' , '日雨量');
     menuRn.querySelector('#rain-h').setAttribute('data-title' , '時雨量');
@@ -40,4 +41,20 @@ document.addEventListener('DOMContentLoaded' , function(){
     menuTy.querySelector('#ty-cmc').setAttribute('data-url-tag' , 'CMC-GEM');
     menuTy.querySelector('#ty-fnmoc').setAttribute('data-url-tag' , 'FNMOC-NAVGEM');
     menuTy.querySelector('#ty-jma').setAttribute('data-url-tag' , 'JMA-GSM');
+
+    menuSkt.querySelector('#skt-tp').setAttribute('data-title' , '探空-臺北');
+    menuSkt.querySelector('#skt-ds').setAttribute('data-title' , '探空-東沙');
+    menuSkt.querySelector('#skt-hl').setAttribute('data-title' , '探空-花蓮');
+    menuSkt.querySelector('#skt-pt').setAttribute('data-title' , '探空-屏東');
+    menuSkt.querySelector('#skt-mk').setAttribute('data-title' , '探空-馬公');
+    menuSkt.querySelector('#skt-pj').setAttribute('data-title' , '探空-彭佳嶼');
+    menuSkt.querySelector('#skt-gi').setAttribute('data-title' , '探空-綠島');
+
+    menuSkt.querySelector('#skt-tp').setAttribute('data-url-tag' , '46692');
+    menuSkt.querySelector('#skt-ds').setAttribute('data-url-tag' , '46810');
+    menuSkt.querySelector('#skt-hl').setAttribute('data-url-tag' , '46699');
+    menuSkt.querySelector('#skt-pt').setAttribute('data-url-tag' , '46750');
+    menuSkt.querySelector('#skt-mk').setAttribute('data-url-tag' , '46734');
+    menuSkt.querySelector('#skt-pj').setAttribute('data-url-tag' , '46695');
+    menuSkt.querySelector('#skt-gi').setAttribute('data-url-tag' , '46780');
 })

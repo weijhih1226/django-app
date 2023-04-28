@@ -30,7 +30,7 @@
     {% for o in image_block %}
         <div id={{ o.block_name }} class="product">
             <div class="header"><div class="title">{{ o.block_dname }}</div><div class="time"></div></div>
-            <div class="pic"><a target="_blank"><img title={{ o.block_dname }} alt={{ o.block_dname }}></a></div>
+            <div class="pic"><a target="_blank"><img title={{ o.block_dname }} alt={{ o.block_dname }} src={{ o.image_info.data_file }}></a></div>
         </div>
     {% endfor %}
     <!-- <div id="rain" class="product">
@@ -120,7 +120,7 @@
             <a href="#"><span>探空</span></a>
             <ul class="inmenu ty-list">
                 <li><input type="radio" value="1" name="skt" id="skt-tp" class="menu-skt-list" checked><span>台北</span></li>
-                <li><input type="radio" value="2" name="skt" id="skt-ds" class="menu-skt-list"><span>東沙島</span></li>
+                <li><input type="radio" value="2" name="skt" id="skt-ds" class="menu-skt-list"><span>東沙</span></li>
                 <li><input type="radio" value="3" name="skt" id="skt-hl" class="menu-skt-list"><span>花蓮</span></li>
                 <li><input type="radio" value="4" name="skt" id="skt-pt" class="menu-skt-list"><span>屏東</span></li>
                 <li><input type="radio" value="5" name="skt" id="skt-mk" class="menu-skt-list"><span>馬公</span></li>

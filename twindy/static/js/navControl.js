@@ -1,10 +1,12 @@
-import * as TAG from './tagInfo.js'
+const ID_BTN_SIDEMENU = '#btn-sidemenu'
+const CLS_SIDEMENU = '.sidemenu'
+const CLS_COLLAPSE = '.collapse'
 
 const DELAY = 10;
 const WIDTH = 300;
 
 window.addEventListener('DOMContentLoaded' , function(){
-    collapseSidemenu(TAG.ID_BTN_SIDEMENU , TAG.CLS_SIDEMENU , TAG.CLS_COLLAPSE , WIDTH , DELAY)
+    collapseSidemenu(ID_BTN_SIDEMENU , CLS_SIDEMENU , CLS_COLLAPSE , WIDTH , DELAY)
 })
 
 function collapseSidemenu(tagClickObj , tagSidemenu , tagCollapses , width , delay){
