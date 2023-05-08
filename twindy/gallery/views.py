@@ -52,4 +52,62 @@ def index(request):
 
 def test(request):
     return HttpResponse(response_weather.text)
+
+def set_cookie(request , key = None , value = None):
+    response = HttpResponse('Cookie has been saved!')
+    response.set_cookie(key , value , max_age = 3600)
+    return response
+
+def get_cookie(request , key = None):
+    if key in request.COOKIES:
+        return HttpResponse(f'{key}: {request.COOKIES[key]}')
+    else:
+        return HttpResponse('Cookie does not exist!')
     
+def get_allcookies(request):
+    if request.COOKIES:
+        strcookies = ''
+        for key , value in request.COOKIES.items():
+            strcookies += key + ': ' + value + '<br>'
+        return HttpResponse(strcookies)
+    else:
+        return HttpResponse('Cookie does not exist!')
+
+def delete_cookie(request , key = None):
+    response = HttpResponse('Delete cookie!')
+    response.delete_cookie(key)
+    return response
+
+def set_session(request , key = None , value = None):
+    response = HttpResponse('Session has been saved!')
+    request.session[key] = value
+    return response
+
+def get_session(request , key = None):
+    if key in request.session:
+        return HttpResponse(f'{key}: {request.session[key]}')
+    else:
+        return HttpResponse('Session does not exist!')
+    
+def get_allsessions(request):
+    return 'request.session'
+    if request.session:
+        strsessions = ''
+        for key , value in request.session.items():
+            strsessions += key + ': ' + value + '<br>'
+        return HttpResponse(strsessions)
+    else:
+        return HttpResponse('Session does not exist!')
+    
+def delete_session(request , key = None):
+    response = HttpResponse('Delete session!')
+    if key in request.session:
+        del request.session[key]
+    return response
+
+def check_visit(request):
+    if not 'visit' in request.session:
+        request.session['visit'] = True
+        return HttpResponse('First visit, welcome!')
+    else:
+        return HttpResponse('Welcome back!')
