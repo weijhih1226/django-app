@@ -125,13 +125,13 @@ input[type=checkbox]:checked {
 .inmenu {
     display: none;
 }
-.bnd-list {
+.bnd-li {
     display: block;
 }
-.rdr-list {
+.rdr-li {
     display: block;
 }
-.stn-list {
+.stn-li {
     display: block;
 }
 
