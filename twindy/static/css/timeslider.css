@@ -8,6 +8,9 @@
     --ts-body-align-items: center;
     --ts-body-pointer-events: auto;
 
+    --ts-bar-background-before: rgba(25 , 124 , 157 , .6);
+    --ts-bar-background-after: rgba(25 , 124 , 157 , .8);
+
     --ts-pointer-width: 12px;
     --ts-pointer-height: 12px;
     --ts-pointer-position: absolute;
@@ -22,6 +25,9 @@
     --ts-pointer-tag-justify-content: center;
     --ts-pointer-tag-align-items: center;
     --ts-pointer-tag-font-size: 14px;
+
+    --ts-bar-tag-background-before: rgba(25 , 124 , 157 , .6);
+    --ts-bar-tag-background-after: rgba(25 , 124 , 157 , .8);
 }
 
 #timeslider {
@@ -73,8 +79,12 @@
     top: 0;
     bottom: 0;
     position: absolute;
-    background: #197C9D;
+    background: var(--ts-bar-background-before);
     border-radius: 5px;
+    transition: all .2s ease-in-out;
+}
+#ts-bar:hover {
+    background: var(--ts-bar-background-after);
 }
 
 #ts-anchor {
@@ -94,6 +104,7 @@
     border: 2px solid #fff;
     border-radius: var(--ts-pointer-border-radius);
     cursor: var(--ts-pointer-cursor);
+    pointer-events: none;
 }
 
 #ts-pointer-tag {
@@ -133,13 +144,17 @@
     border: 2px solid #fff;
     border-radius: 6px;
     position: var(--ts-pointer-tag-position);
-    background: #197C9D;
+    background: var(--ts-bar-tag-background-before);
     color: var(--ts-pointer-tag-color);
     display: flex;
     justify-content: var(--ts-pointer-tag-justify-content);
     align-items: var(--ts-pointer-tag-align-items);
     font-size: var(--ts-pointer-tag-font-size);
     z-index: 1;
+    transition: all .2s ease-in-out;
+}
+#ts-bar-tag:hover {
+    background: var(--ts-bar-tag-background-after);
 }
 
 #ts-ctl {
